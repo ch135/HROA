@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.NoticeDao">
+	<sql id="noticeInfoBase_Column_List">
+		id,title,txt,adduser,addtime,status,is_del
+	</sql>
+	<!-- 添加公告 -->
+	<insert id="addNotice" parameterType="com.hroa.model.NoticeModel" useGeneratedKeys="true" keyProperty="id">
+	    insert into oa_notice (title,txt,adduser,addtime
+	    	)
+	    values (#{title,jdbcType=LONGVARCHAR},#{txt,jdbcType=LONGVARCHAR},
+	    		#{adduser,jdbcType=LONGVARCHAR},#{addtime,jdbcType=LONGVARCHAR}
+	    	)
+  	</insert>
+  	<!-- 获取公告数量 -->
+  	<select id="getNtAmount" resultType="int">
+		select count(*) from oa_notice where is_del=0
+	</select>
+	<!-- 分页获取公告 -->
+	<select id="gtNtByPage" resultType="com.hroa.model.NoticeModel"  parameterType="java.lang.Integer" >
+		select
+		<include refid="noticeInfoBase_Column_List"></include> 
+		from oa_notice limit #{0},#{1} 
+	</select>
+	<!-- 根据公告ID获取公告信息-->
+	<select id="gtNtInfoById" resultType="com.hroa.model.NoticeModel"  parameterType="java.lang.Integer" >
+		select
+		<include refid="noticeInfoBase_Column_List"></include> 
+		from oa_notice where id=#{0}
+	</select>
+</mapper>

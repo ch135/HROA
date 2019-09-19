@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.IncomemanageDao" >
+  <resultMap id="BaseResultMap" type="com.hroa.model.Incomemanage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="serial" property="serial" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+    <result column="origin" property="origin" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="income_date" property="incomeDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="pageResultMap" type="com.hroa.model.Incomemanage">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="serial" property="serial" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="income_date" property="incomeDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hroa.model.Incomemanage" extends="BaseResultMap" >
+    <result column="state" property="state" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, admin_id, serial, department, link_man, origin, money, income_date
+  </sql>
+  <sql id="Blob_Column_List" >
+    state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from incomemanage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from incomemanage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hroa.model.Incomemanage" >
+    insert into incomemanage (id, admin_id, serial, 
+      department, link_man, origin, 
+      money, income_date, state
+      )
+    values (#{id,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{serial,jdbcType=VARCHAR}, 
+      #{department,jdbcType=VARCHAR}, #{linkMan,jdbcType=VARCHAR}, #{origin,jdbcType=VARCHAR}, 
+      #{money,jdbcType=DOUBLE}, #{incomeDate,jdbcType=TIMESTAMP}, #{state,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hroa.model.Incomemanage" >
+    insert into incomemanage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="serial != null" >
+        serial,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="linkMan != null" >
+        link_man,
+      </if>
+      <if test="origin != null" >
+        origin,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="incomeDate != null" >
+        income_date,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="serial != null" >
+        #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMan != null" >
+        #{linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null" >
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="incomeDate != null" >
+        #{incomeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.Incomemanage" >
+    update incomemanage
+    <set >
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="serial != null" >
+        serial = #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMan != null" >
+        link_man = #{linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null" >
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="incomeDate != null" >
+        income_date = #{incomeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hroa.model.Incomemanage" >
+    update incomemanage
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      serial = #{serial,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      origin = #{origin,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      income_date = #{incomeDate,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hroa.model.Incomemanage" >
+    update incomemanage
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      serial = #{serial,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      origin = #{origin,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      income_date = #{incomeDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectInfoByPage" resultMap="pageResultMap" parameterType="java.lang.Integer">
+    select id,serial,department,link_man,money,income_date from incomemanage ORDER BY income_date DESC limit #{page,jdbcType=INTEGER},20
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*) from incomemanage
+  </select>
+  <select id="selectInfoByDate" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select id,serial,department,link_man,money,income_date from incomemanage where date_format(income_date,'%Y-%m')=#{content,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAdminNameById" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select username from sh_admin where id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <select id="selectApartInfo" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from incomemanage where date_format(income_date,'%Y-%m')=#{content,jdbcType=VARCHAR}
+  </select>
+  <select id="selecAllInfo" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from incomemanage
+  </select>
+</mapper>

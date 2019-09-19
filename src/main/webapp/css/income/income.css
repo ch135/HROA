@@ -1,0 +1,35 @@
+.am-tabs-bd .am-tab-panel{
+	padding:10px 10px 0px;
+}
+.fieldset{
+	padding-top:.35em;
+	padding-right:.625em;
+	padding-left: .625em;
+	padding-bottom: 0;
+}
+.am-tabs-bd .am-tab-panel.am-active{
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 10px;
+}
+fieldset{
+	margin: 0;
+}
+.pageNow{
+	font-size: 1.6rem;
+	color: #095f8a;
+}
+th,td{
+	text-align: center;
+	font-size: 1.5rem;
+}
+.am-btn-toolbar .am-btn-group, 
+.am-btn-toolbar .am-input-group{
+	float: none;
+}
+.am-pagination-default{
+	font-size:1.4rem;
+}
+.admin-main{
+	padding-top:0px;
+}

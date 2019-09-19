@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.BorrowDao" >
+  <resultMap id="BaseResultMap" type="com.hroa.model.Borrow" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="reason" property="reason" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="VARCHAR" />
+    <result column="backtime" property="backtime" jdbcType="DATE" />
+    <result column="applytime" property="applytime" jdbcType="DATE" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="firstcheck" property="firstcheck" jdbcType="INTEGER" />
+    <result column="secondcheck" property="secondcheck" jdbcType="INTEGER" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+    <result column="userrepay" property="userrepay" jdbcType="INTEGER" />
+    <result column="realtime" property="realtime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, department, phone, reason, money, backtime, applytime, manager, firstcheck, 
+    secondcheck, result, userrepay, realtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from borrow
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+   <select id="getDayNum" resultType="Integer" parameterType="Map">
+  	select Count(*) from borrow 
+  	where result=0 and realtime=#{day} and
+  	<if test="power==1">
+  		fristcheck=0
+  	</if>
+  	<if test="power==2">
+  		secondcheck=0
+  	</if>
+  	<if test="power==3">
+  		fristcheck=1 and secondcheck=1
+  	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from borrow
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hroa.model.Borrow" >
+    insert into borrow (id, name, department, 
+      phone, reason, money, 
+      backtime, applytime, manager, 
+      firstcheck, secondcheck, result, 
+      userrepay, realtime)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, 
+      #{backtime,jdbcType=DATE}, #{applytime,jdbcType=DATE}, #{manager,jdbcType=VARCHAR}, 
+      #{firstcheck,jdbcType=INTEGER}, #{secondcheck,jdbcType=INTEGER}, #{result,jdbcType=INTEGER}, 
+      #{userrepay,jdbcType=INTEGER}, #{realtime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hroa.model.Borrow" >
+    insert into borrow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="backtime != null" >
+        backtime,
+      </if>
+      <if test="applytime != null" >
+        applytime,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="firstcheck != null" >
+        firstcheck,
+      </if>
+      <if test="secondcheck != null" >
+        secondcheck,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="userrepay != null" >
+        userrepay,
+      </if>
+      <if test="realtime != null" >
+        realtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="backtime != null" >
+        #{backtime,jdbcType=DATE},
+      </if>
+      <if test="applytime != null" >
+        #{applytime,jdbcType=DATE},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="firstcheck != null" >
+        #{firstcheck,jdbcType=INTEGER},
+      </if>
+      <if test="secondcheck != null" >
+        #{secondcheck,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="userrepay != null" >
+        #{userrepay,jdbcType=INTEGER},
+      </if>
+      <if test="realtime != null" >
+        #{realtime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.Borrow" >
+    update borrow
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="backtime != null" >
+        backtime = #{backtime,jdbcType=DATE},
+      </if>
+      <if test="applytime != null" >
+        applytime = #{applytime,jdbcType=DATE},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="firstcheck != null" >
+        firstcheck = #{firstcheck,jdbcType=INTEGER},
+      </if>
+      <if test="secondcheck != null" >
+        secondcheck = #{secondcheck,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="userrepay != null" >
+        userrepay = #{userrepay,jdbcType=INTEGER},
+      </if>
+      <if test="realtime != null" >
+        realtime = #{realtime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hroa.model.Borrow" >
+    update borrow
+    set name = #{name,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      reason = #{reason,jdbcType=VARCHAR},
+      money = #{money,jdbcType=VARCHAR},
+      backtime = #{backtime,jdbcType=DATE},
+      applytime = #{applytime,jdbcType=DATE},
+      manager = #{manager,jdbcType=VARCHAR},
+      firstcheck = #{firstcheck,jdbcType=INTEGER},
+      secondcheck = #{secondcheck,jdbcType=INTEGER},
+      result = #{result,jdbcType=INTEGER},
+      userrepay = #{userrepay,jdbcType=INTEGER},
+      realtime = #{realtime,jdbcType=DATE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getCount" parameterType="java.lang.Integer" resultType="Integer">
+  	select count(*) from borrow 
+  	<if test="power==1">
+  	where firstcheck = 0
+  	</if>
+  	<if test="power==2">
+  	where secondcheck = 0
+  	</if>
+  </select>
+  
+  <select id="getBorrow" parameterType="Map" resultMap="BaseResultMap">
+  	select * from borrow
+  	where result=0 and
+  		<if test="power==1 and start!=null and pagesize!=null">
+  			firstcheck=0 order by realtime desc limit #{start},#{pagesize}
+  		</if>
+  		<if test="power==2 and start!=null and pagesize!=null">
+  			secondcheck=0 order by realtime desc limit #{start},#{pagesize}
+  		</if>
+  	
+  </select>
+
+  <select id="getHistoryCount" parameterType="java.lang.Integer" resultType="Integer">
+  	select count(*) from borrow
+  	where result = 0
+  	<if test="power==1">
+  		and firstcheck != 0 
+  	</if>
+  	<if test="power==2">
+  		and secondcheck != 0
+  	</if>
+  </select>
+  
+   <select id="getHistoryBorrow" parameterType="Map" resultMap="BaseResultMap">
+   	select * from borrow
+   	where result = 0
+   	<if test="power==1 and start!=null and pagesize!=null">
+   	and firstcheck != 0 order by realtime desc limit #{start},#{pagesize}
+   	</if>
+   	<if test="power==2 and start!=null and pagesize!=null">
+   	and secondcheck != 0 order by realtime desc limit #{start},#{pagesize}
+   	</if>
+   	</select>
+   	
+   	<select id="getBorrowByname" parameterType="Map" resultMap="BaseResultMap">
+  		select
+  		<include refid="Base_Column_List"/>
+  		from borrow where result=0 and name=#{name} and
+  		<if test="power==1 and start!=null and pagesize!=null">
+  			firstcheck=0 order by realtime desc limit #{start},#{pagesize}
+  		</if>
+  		<if test="power==2 and start!=null and pagesize!=null">
+  			secondcheck=0 order by realtime desc limit #{start},#{pagesize}
+  		</if>
+  </select>
+  
+   <select id="getCountByname" parameterType="Map" resultType="Integer">
+   	select count(*) from borrow
+   	where result = 0 and name = #{name}
+   	<if test="power==1">
+   	and firstcheck = 0
+   	</if>
+   	<if test="power==2">
+   	and secondcheck = 0
+   	</if>
+   	</select>
+   	
+   	<select id="getBorrowByPhone" parameterType="String" resultMap="BaseResultMap">
+   	select * from borrow
+   	where phone = #{phone} order by realtime desc
+   	</select>
+   	
+   	<update id="changeBorrow" parameterType="com.hroa.model.Borrow">
+   	update borrow
+   	<set>
+   	  <if test="firstcheck!=null">
+   		firstcheck = #{firstcheck},
+   	  </if>
+   	  <if test="secondcheck!=null">
+   		secondcheck = #{secondcheck},
+   	  </if>
+   	  <if test="result != null">
+   		result = #{result}
+   	  </if>
+   	</set>
+   	where id = #{id}
+   		
+   	</update>
+</mapper>

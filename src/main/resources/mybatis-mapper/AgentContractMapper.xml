@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.AgentContractDao" >
+	 <resultMap id="BaseResultMap" type="com.hroa.model.AgentContract" >
+	   <id column="id" property="id" jdbcType="INTEGER" />
+	   <result column="agent_id" property="agentId" jdbcType="INTEGER" />
+	   <result column="name" property="name" jdbcType="VARCHAR" />
+	   <result column="province" property="province" jdbcType="VARCHAR" />
+	   <result column="city" property="city" jdbcType="VARCHAR" />
+	   <result column="county" property="county" jdbcType="VARCHAR" />
+	   <result column="details" property="details" jdbcType="VARCHAR" />
+	   <result column="school" property="school" jdbcType="VARCHAR" />
+	   <result column="phone" property="phone" jdbcType="VARCHAR" />
+	   <result column="url" property="url" jdbcType="VARCHAR" />
+	   <result column="sign_date" property="signDate" jdbcType="VARCHAR" />
+	   <result column="contract_code" property="contractCode" jdbcType="VARCHAR" />
+	   <result column="state" property="state" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+	  id, agent_id, name, province, city, county, details, school, phone, url, contract_code,sign_date
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+	  select 
+	  <include refid="Base_Column_List" />
+	  from agentcontract
+	  where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+	  delete from agentcontract
+	  where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.hroa.model.AgentContract" >
+	  insert into agentcontract (id, agent_id, name, 
+	    province, city, county, 
+	    details, school, phone, 
+	    url, contract_code,sign_date)
+	  values (#{id,jdbcType=INTEGER}, #{agentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+	    #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, 
+	    #{details,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+	    #{url,jdbcType=VARCHAR}, #{contractCode,jdbcType=VARCHAR},#{signDate,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hroa.model.AgentContract" >
+	  insert into agentcontract
+	  <trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="id != null" >
+	      id,
+	    </if>
+	    <if test="agentId != null" >
+	      agent_id,
+	    </if>
+	    <if test="name != null" >
+	      name,
+	    </if>
+	    <if test="province != null" >
+	      province,
+	    </if>
+	    <if test="city != null" >
+	      city,
+	    </if>
+	    <if test="county != null" >
+	      county,
+	    </if>
+	    <if test="details != null" >
+	      details,
+	    </if>
+	    <if test="school != null" >
+	      school,
+	    </if>
+	    <if test="phone != null" >
+	      phone,
+	    </if>
+	    <if test="url != null" >
+	      url,
+	    </if>
+	    <if test="contractCode != null" >
+	      contract_code,
+	    </if>
+	     <if test="signDate != null" >
+	      sign_date,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="id != null" >
+	      #{id,jdbcType=INTEGER},
+	    </if>
+	    <if test="agentId != null" >
+	      #{agentId,jdbcType=INTEGER},
+	    </if>
+	    <if test="name != null" >
+	      #{name,jdbcType=VARCHAR},
+	    </if>
+	    <if test="province != null" >
+	      #{province,jdbcType=VARCHAR},
+	    </if>
+	    <if test="city != null" >
+	      #{city,jdbcType=VARCHAR},
+	    </if>
+	    <if test="county != null" >
+	      #{county,jdbcType=VARCHAR},
+	    </if>
+	    <if test="details != null" >
+	      #{details,jdbcType=VARCHAR},
+	    </if>
+	    <if test="school != null" >
+	      #{school,jdbcType=VARCHAR},
+	    </if>
+	    <if test="phone != null" >
+	      #{phone,jdbcType=VARCHAR},
+	    </if>
+	    <if test="url != null" >
+	      #{url,jdbcType=VARCHAR},
+	    </if>
+	    <if test="contractCode != null" >
+	      #{contractCode,jdbcType=VARCHAR},
+	    </if>
+	     <if test="signDate != null" >
+	     #{signDate,jdbcType=VARCHAR},
+	    </if>
+	  </trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.AgentContract" >
+	  update agentcontract
+	  <set >
+	    <if test="agentId != null" >
+	      agent_id = #{agentId,jdbcType=INTEGER},
+	    </if>
+	    <if test="name != null" >
+	      name = #{name,jdbcType=VARCHAR},
+	    </if>
+	    <if test="province != null" >
+	      province = #{province,jdbcType=VARCHAR},
+	    </if>
+	    <if test="city != null" >
+	      city = #{city,jdbcType=VARCHAR},
+	    </if>
+	    <if test="county != null" >
+	      county = #{county,jdbcType=VARCHAR},
+	    </if>
+	    <if test="details != null" >
+	      details = #{details,jdbcType=VARCHAR},
+	    </if>
+	    <if test="school != null" >
+	      school = #{school,jdbcType=VARCHAR},
+	    </if>
+	    <if test="phone != null" >
+	      phone = #{phone,jdbcType=VARCHAR},
+	    </if>
+	    <if test="url != null" >
+	      url = #{url,jdbcType=VARCHAR},
+	    </if>
+	    <if test="contractCode != null" >
+	      contract_code = #{contractCode,jdbcType=VARCHAR},
+	    </if>
+	      <if test="signDate != null" >
+	     #{signDate,jdbcType=VARCHAR},
+	    </if>
+	  </set>
+	  where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hroa.model.AgentContract" >
+	  update agentcontract
+	  set agent_id = #{agentId,jdbcType=INTEGER},
+	    name = #{name,jdbcType=VARCHAR},
+	    province = #{province,jdbcType=VARCHAR},
+	    city = #{city,jdbcType=VARCHAR},
+	    county = #{county,jdbcType=VARCHAR},
+	    details = #{details,jdbcType=VARCHAR},
+	    school = #{school,jdbcType=VARCHAR},
+	    phone = #{phone,jdbcType=VARCHAR},
+	    url = #{url,jdbcType=VARCHAR},
+	    contract_code = #{contractCode,jdbcType=VARCHAR}
+	    sign_date =#{signDate,jdbcType=VARCHAR}
+	  where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 代理合同属性 -->
+	  
+	<sql id="agentContractAttribute">
+	agent_id, name, province, city, county, details, school, phone, url, contract_code,sign_date
+	</sql>
+	
+	<!-- 插入代理合同 -->
+	<insert id="insertAgentContract" parameterType="com.hroa.model.AgentContract">
+		insert into agentcontract (agent_id, name, province, city, county, details, school, phone, url, contract_code,sign_date)
+		values (#{agentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+		 #{county,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+		 #{url,jdbcType=VARCHAR}, #{contractCode,jdbcType=VARCHAR},#{signDate,jdbcType=VARCHAR}
+		 ) 
+	</insert>
+	
+	<!-- 删除合同记录 -->
+	<update id="deleteAgentContract" parameterType="com.hroa.model.AgentContract">
+	 	 update agentcontract
+		 set state = #{state,jdbcType=VARCHAR}
+		 where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 查询当前代理的合同记录 -->
+	<select id="selectAgentContractByAgentId" parameterType="com.hroa.model.AgentContract" resultMap="BaseResultMap"> 
+		 select * from agentcontract where agent_id = #{agentId,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 查询所有代理的合同 -->
+	<select id="selectAllAgentContract" resultMap="BaseResultMap">
+		 select * from agentcontract
+	</select>
+	
+	
+	<!-- 查看所有代理的合同 -->
+	 	<select id="datagridAgentContract" resultMap="BaseResultMap" parameterType="com.hroa.util.Page">
+		select
+		<include refid="Base_Column_List" />
+		from agentcontract where 1=1
+		and state=1
+		<if test="paramEntity.name!=null and paramEntity.name!=''"> and name like concat('%','${paramEntity.name}','%' )</if>
+		order by id 
+		<if test="page > 0">
+			limit #{start},#{rows}
+		</if>
+	</select>
+	
+		<select id="selectAgentContractTotal" parameterType="com.hroa.util.Page" resultType="java.lang.Integer">
+			select count(*) from agentcontract where 1=1
+			and state=1
+		<if test="paramEntity.name!=null and paramEntity.name!=''"> and name like concat('%','${paramEntity.name}','%' )</if>
+		</select>
+		
+		<!-- 查看具体的代理合同信息 -->
+	<select id="showDetails" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from agentcontract where id=#{id,jdbcType=INTEGER}
+	</select>
+	
+	<!-- 编辑代理合同 -->
+	<update id="editAgentContract" parameterType="com.hroa.model.AgentContract" >
+	   update agentcontract
+	   <set >
+	     <if test="agentId != null" >
+	       agent_id = #{agentId,jdbcType=INTEGER},
+	     </if>
+	     <if test="name != null" >
+	       name = #{name,jdbcType=VARCHAR},
+	     </if>
+	     <if test="province != null" >
+	       province = #{province,jdbcType=VARCHAR},
+	     </if>
+	     <if test="city != null" >
+	       city = #{city,jdbcType=VARCHAR},
+	     </if>
+	     <if test="county != null" >
+	       county = #{county,jdbcType=VARCHAR},
+	     </if>
+	     <if test="details != null" >
+	       details = #{details,jdbcType=VARCHAR},
+	     </if>
+	     <if test="school != null" >
+	       school = #{school,jdbcType=VARCHAR},
+	     </if>
+	     <if test="phone != null" >
+	       phone = #{phone,jdbcType=VARCHAR},
+	     </if>
+	     <if test="url != null" >
+	       url = #{url,jdbcType=VARCHAR},
+	     </if>
+	     <if test="contractCode != null" >
+	       contract_code = #{contractCode,jdbcType=VARCHAR},
+	     </if>
+	      <if test="signDate != null" >
+	       sign_date = #{signDate,jdbcType=VARCHAR},
+	     </if>
+	   </set>
+	   where id = #{id,jdbcType=INTEGER}
+	 </update>
+	 
+	 
+	 
+	 <!-- 代理查看自己的代理的合同 -->
+	 	<select id="datagridAgentContractToAgent" resultMap="BaseResultMap" parameterType="com.hroa.util.Page">
+		select
+		<include refid="Base_Column_List" />
+		from agentcontract where 1=1
+		and state=1
+		and agent_id=#{paramEntity.agentId}
+		<if test="paramEntity.name!=null and paramEntity.name!=''"> and name like concat('%','${paramEntity.name}','%' )</if>
+		order by id 
+		<if test="page > 0">
+			limit #{start},#{rows}
+		</if>
+	</select>
+	
+	<select id="selectAgentContractTotalToAgent" parameterType="com.hroa.util.Page" resultType="java.lang.Integer">
+		select count(*) from agentcontract where 1=1
+		and state=1
+		and agent_id=#{paramEntity.agentId}
+	<if test="paramEntity.name!=null and paramEntity.name!=''"> and name like concat('%','${paramEntity.name}','%' )</if>
+	</select>
+</mapper>

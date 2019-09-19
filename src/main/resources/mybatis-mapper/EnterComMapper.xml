@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.EnterComDao">
+	
+	<resultMap id="ShUser" type="com.hroa.model.ShUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="VARCHAR" />
+		<result column="icno" property="icno" jdbcType="VARCHAR" />
+		<result column="IDcard" property="idcard" jdbcType="VARCHAR" />
+		<result column="school" property="school" jdbcType="VARCHAR" />
+		<result column="major" property="major" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="region" property="region" jdbcType="VARCHAR" />
+		<result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+		<result column="requires" property="requires" jdbcType="VARCHAR" />
+		<result column="eager" property="eager" jdbcType="INTEGER" />
+		<result column="job_type" property="jobType" jdbcType="INTEGER" />
+		<result column="entry_time" property="entryTime" jdbcType="VARCHAR" />
+		<result column="balance" property="balance" jdbcType="DECIMAL" />
+		<result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+		<result column="point" property="point" jdbcType="INTEGER" />
+		<result column="sign" property="sign" jdbcType="INTEGER" />
+		<result column="is_supplement" property="isSupplement" jdbcType="INTEGER" />
+		<result column="registerdate" property="registerdate" jdbcType="VARCHAR" />
+		<result column="logindate" property="logindate" jdbcType="VARCHAR" />
+		<result column="agent_id" property="agentId" jdbcType="INTEGER" />
+		<result column="agent_apply" property="agentApply" jdbcType="INTEGER" />
+	</resultMap>	
+	
+	<resultMap id="BaseResultMap" type="com.hroa.model.EnterCom">
+		<id column="enter_comId" property="enterComid" jdbcType="INTEGER" />
+		<result column="userId" property="userid" jdbcType="VARCHAR" />
+		<result column="send_unit" property="sendUnit" jdbcType="VARCHAR" />
+		<result column="send_telephone" property="sendTelephone" jdbcType="VARCHAR" />
+		<result column="send_company" property="sendCompany" jdbcType="VARCHAR" />
+		<result column="workerId" property="workerId" jdbcType="VARCHAR" />
+		<result column="manager_tel" property="managerTel" jdbcType="VARCHAR" />
+		<result column="leave_date" property="leaveDate" jdbcType="VARCHAR" />
+		<result column="leave_reason" property="leaveReason" jdbcType="VARCHAR" />
+		<result column="date" property="date" jdbcType="DATE" />
+		<result column="is_work" property="isWork" jdbcType="BOOLEAN" />
+		<result column="is_read" property="isRead" jdbcType="BOOLEAN" />
+		<result column="is_delete" property="isDelete" jdbcType="BOOLEAN" />
+		<association property="shUser" resultMap="ShUser" >
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="VARCHAR" />
+		<result column="icno" property="icno" jdbcType="VARCHAR" />
+		<result column="IDcard" property="idcard" jdbcType="VARCHAR" />
+		<result column="school" property="school" jdbcType="VARCHAR" />
+		<result column="major" property="major" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="region" property="region" jdbcType="VARCHAR" />
+		<result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+		<result column="requires" property="requires" jdbcType="VARCHAR" />
+		<result column="eager" property="eager" jdbcType="INTEGER" />
+		<result column="job_type" property="jobType" jdbcType="INTEGER" />
+		<result column="entry_time" property="entryTime" jdbcType="VARCHAR" />
+		<result column="balance" property="balance" jdbcType="DECIMAL" />
+		<result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+		<result column="point" property="point" jdbcType="INTEGER" />
+		<result column="sign" property="sign" jdbcType="INTEGER" />
+		<result column="is_supplement" property="isSupplement" jdbcType="INTEGER" />
+		<result column="registerdate" property="registerdate" jdbcType="VARCHAR" />
+		<result column="logindate" property="logindate" jdbcType="VARCHAR" />
+		<result column="agent_id" property="agentId" jdbcType="INTEGER" />
+		<result column="agent_apply" property="agentApply" jdbcType="INTEGER" />
+		</association>
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		enter_comId, userId, send_unit, send_telephone, send_company, workerId, manager_tel,
+		leave_date, leave_reason,s.id, telephone, username, password, realname, sex, birthday, icno, IDcard, school,
+		major, province, city, region, link_phone, requires, eager, job_type, entry_time,
+		balance, bank_card, point, sign, is_supplement, registerdate, logindate, agent_id,date
+		agent_apply,is_work,is_read,is_delete
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from enter_com e left outer join sh_user s on e.userId=s.id
+		where enter_comId = #{enterComid,jdbcType=INTEGER}
+	</select>
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from enter_com
+		where enter_comId = #{enterComid,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.hroa.model.EnterCom">
+		insert into enter_com (enter_comId, userId, send_unit,
+		send_telephone, send_company, workerId,
+		manager_tel, leave_date, leave_reason,date,is_work,is_read,is_delete
+		)
+		values (#{enterComid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{sendUnit,jdbcType=VARCHAR},
+		#{sendTelephone,jdbcType=VARCHAR}, #{sendCompany,jdbcType=VARCHAR}, #{workerId,jdbcType=VARCHAR},
+		#{managerTel,jdbcType=VARCHAR}, #{leaveDate,jdbcType=VARCHAR}, #{leaveReason,jdbcType=VARCHAR},
+		 #{date,jdbcType=DATE},#{isWork,jdbcType=BOOLEAN},#{isRead,jdbcType=BOOLEAN},#{isDelete,jdbcType=BOOLEAN}
+		)
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.EnterCom">
+		update enter_com
+		<set>
+			<if test="userid != null">
+				userId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="sendUnit != null">
+				send_unit = #{sendUnit,jdbcType=VARCHAR},
+			</if>
+			<if test="sendTelephone != null">
+				send_telephone = #{sendTelephone,jdbcType=VARCHAR},
+			</if>
+			<if test="sendCompany != null">
+				send_company = #{sendCompany,jdbcType=VARCHAR},
+			</if>
+			<if test="workerId != null">
+				workerId = #{workerId,jdbcType=VARCHAR},
+			</if>
+			<if test="managerTel != null">
+				manager_tel = #{managerTel,jdbcType=VARCHAR},
+			</if>
+			<if test="leaveDate != null">
+				leave_date = #{leaveDate,jdbcType=VARCHAR},
+			</if>
+			<if test="leaveReason != null">
+				leave_reason = #{leaveReason,jdbcType=VARCHAR},
+			</if>
+			<if test="isRead != null">
+				is_read = #{isRead,jdbcType=BOOLEAN},
+			</if>
+			<if test="isWork != null">
+				is_work = #{isWork,jdbcType=BOOLEAN},
+			</if>
+			<if test="isDelete != null">
+				is_delete = #{isDelete,jdbcType=BOOLEAN},
+			</if>
+		</set>
+		where enter_comId = #{enterComid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hroa.model.EnterCom">
+		update enter_com
+		set userId = #{userid,jdbcType=VARCHAR},
+		send_unit = #{sendUnit,jdbcType=VARCHAR},
+		send_telephone = #{sendTelephone,jdbcType=VARCHAR},
+		send_company = #{sendCompany,jdbcType=VARCHAR},
+		workerId = #{workerId,jdbcType=VARCHAR},
+		manager_tel = #{managerTel,jdbcType=VARCHAR},
+		leave_date = #{leaveDate,jdbcType=VARCHAR},
+		leave_reason = #{leaveReason,jdbcType=VARCHAR},
+		is_read = #{isRead,jdbcType=BOOLEAN},
+		is_work = #{isWork,jdbcType=BOOLEAN} 
+		is_delete = #{isDelete,jdbcType=BOOLEAN} 
+		where enter_comId = #{enterComid,jdbcType=INTEGER}
+	</update>
+	
+	<select id="selectEnterComTotal" parameterType="com.hroa.util.Page" resultType="java.lang.Integer">
+		select count(*)   
+		from enter_com e left outer join sh_user s on e.userId=s.id
+		where 1=1   and e.is_delete=false 
+		<if test="paramEntity.shUser!=null ">
+			<if test="paramEntity.shUser.id != null and paramEntity.shUser.id !='' ">
+					and e.userId= #{paramEntity.shUser.id,jdbcType=INTEGER}  
+			</if>
+			<if test="paramEntity.shUser.realname != null and paramEntity.shUser.realname !='' ">
+					and s.realname like  concat('%','${paramEntity.shUser.realname}','%' )  
+			</if>
+			<if test="paramEntity.shUser.telephone != null and paramEntity.shUser.telephone !='' ">
+					and s.telephone =#{paramEntity.shUser.telephone,jdbcType=VARCHAR}
+			</if>
+			<if test="paramEntity.shUser.idcard!= null and paramEntity.shUser.idcard !='' ">
+					and s.idcard =#{paramEntity.shUser.idcard,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="paramEntity.sendTelephone!=null and paramEntity.sendTelephone !='' ">
+				and e.send_Telephone =#{paramEntity.sendTelephone,jdbcType=VARCHAR}
+		</if>
+		<if test="paramEntity.sendCompany!=null and paramEntity.sendCompany !='' ">
+				and e.send_Company =#{paramEntity.sendCompany,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="paramEntity.workerId!=null and paramEntity.workerId !='' ">
+				and e.workerId =#{paramEntity.workerId,jdbcType=VARCHAR}
+		</if>
+		<if test="paramEntity.sendUnit!=null and paramEntity.sendUnit !='' ">
+				and e.send_Unit =#{paramEntity.sendUnit,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="paramEntity.leaveDate!=null">
+			<if test="paramEntity.leaveDate=='在职'">
+				and e.leave_Date is null 
+			</if>
+			<if test="paramEntity.leaveDate=='离职'">
+				and e.leave_Date is not null 
+			</if>
+		</if>
+	</select>
+
+
+	<select id="datagridEnterCom" resultMap="BaseResultMap" parameterType="com.hroa.util.Page">
+		select
+		<include refid="Base_Column_List" />
+		from enter_com e left outer join sh_user s on e.userId=s.id
+		where 1=1  and e.is_delete=false 
+		<if test="paramEntity.shUser!=null ">
+		
+			<if test="paramEntity.shUser.id != null and paramEntity.shUser.id !='' ">
+					and e.userId= #{paramEntity.shUser.id,jdbcType=INTEGER}  
+			</if>
+			<if test="paramEntity.shUser.realname != null and paramEntity.shUser.realname !='' ">
+					and s.realname like  concat('%','${paramEntity.shUser.realname}','%' )  
+			</if>
+			<if test="paramEntity.shUser.telephone != null and paramEntity.shUser.telephone !='' ">
+					and s.telephone =#{paramEntity.shUser.telephone,jdbcType=VARCHAR}
+			</if>
+			<if test="paramEntity.shUser.idcard!= null and paramEntity.shUser.idcard !='' ">
+					and s.idcard =#{paramEntity.shUser.idcard,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="paramEntity.sendTelephone!=null and paramEntity.sendTelephone !='' ">
+				and e.send_Telephone =#{paramEntity.sendTelephone,jdbcType=VARCHAR}
+		</if>
+		<if test="paramEntity.sendCompany!=null and paramEntity.sendCompany !='' ">
+				and e.send_Company =#{paramEntity.sendCompany,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="paramEntity.workerId!=null and paramEntity.workerId !='' ">
+				and e.workerId =#{paramEntity.workerId,jdbcType=VARCHAR}
+		</if>
+		<if test="paramEntity.sendUnit!=null and paramEntity.sendUnit !='' ">
+				and e.send_Unit =#{paramEntity.sendUnit,jdbcType=VARCHAR}
+		</if>
+		
+		<if test="paramEntity.isWork!=null">
+				and e.is_work = #{paramEntity.isWork,jdbcType=BOOLEAN} 
+		</if>
+		
+		<if test="pageMap.startDate != null and pageMap.startDate !=''">
+			and e.date &gt;=  #{pageMap.startDate}
+		</if>
+		
+		<if test="pageMap.endDate != null and pageMap.endDate !=''">
+			and e.date &gt;=  #{pageMap.endDate}
+		</if>
+		
+		order by e.enter_comid desc
+		
+		<if test="page > 0"> 
+			limit #{start},#{rows} 
+		</if>
+	</select>
+	<select id="selectCount" parameterType="com.hroa.model.EnterCom" resultType="java.lang.Integer">
+		select count(*)   
+		from enter_com e 
+		where 1=1  
+		<if test="workerId!=null and workerId !='' ">
+				and e.workerId =#{workerId,jdbcType=VARCHAR}
+		</if>
+		<if test="isRead!=null ">
+				and e.is_read =#{isRead,jdbcType=BOOLEAN}
+		</if>
+	</select>
+	
+	
+</mapper>

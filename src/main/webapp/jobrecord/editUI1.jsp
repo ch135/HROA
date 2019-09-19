@@ -1,0 +1,312 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>OA办公系统</title>
+  <meta name="description" content="这是一个 user 页面">
+  <meta name="keywords" content="user">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="../assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="../assets/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="../assets/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+</head>
+<body>
+
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">企业资料</strong> / <small>Personal information</small></div>
+      </div>
+
+      <hr/>
+
+      <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+        </div>
+
+        <div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4">
+          <form id="doc-vld-msg" class="am-form am-form-horizontal" action="/HROA/JobRecord/edit.html">
+            <div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">企业名称</label>
+              <div class="am-u-sm-9">
+                <input name="name" type="text" id="name" placeholder="姓名 / Name" value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+            
+          <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-3 am-form-label">企业类别</label>
+            <div class="am-u-sm-9">
+              <select class="am-form-field" name="label" required >
+                 <option value="外资" ${jobRecord.label=='外资'?'selected':'' }>外资</option>
+                <option value="台资" ${jobRecord.label=='台资'?'selected':'' }>台资</option>
+                <option value="合资" ${jobRecord.label=='合资'?'selected':'' }>合资</option>
+                 <option value="独资" ${jobRecord.label=='独资'?'selected':'' }>独资</option>
+                  <option value="国有" ${jobRecord.label=='国有'?'selected':'' }>国有</option>
+              </select>
+            </div>
+          </div>
+            
+            <div class="am-form-group">
+              <label for="user-phone" class="am-u-sm-3 am-form-label">详细地址</label>
+              <div class="am-u-sm-9">
+                <input type="text" name="details" id="user-phone" placeholder="详细地址 / Detail"  value="${jobRecord.name }" >
+              </div>
+            </div>
+
+            <div class="am-form-group">
+              <label for="user-QQ" class="am-u-sm-3 am-form-label">网址</label>
+              <div class="am-u-sm-9">
+                <input name="url"  type="text"   id="user-QQ" placeholder="网址/URL"  value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+              <div class="am-form-group">
+              <label for="user-weibo" class="am-u-sm-3 am-form-label">主要生产产品</label>
+              <div class="am-u-sm-9">
+                <input name="produce" type="text" id="produce" placeholder="主要生产产品 / Produce"  value="${jobRecord.name }" >
+              </div>
+            </div>
+
+            <div class="am-form-group">
+              <label for="user-weibo" class="am-u-sm-3 am-form-label">企业联系人</label>
+              <div class="am-u-sm-9">
+                <input name="linkMan" type="text" id="user-weibo" placeholder="企业联系人 / Linkman"  value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+              <label for="user-weibo" class="am-u-sm-3 am-form-label">联系人电话</label>
+              <div class="am-u-sm-9">
+                <input name="linkPhone" type="text" id="user-weibo" placeholder="联系人电话 / telephone"  value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+              <label for="user-weibo" class="am-u-sm-3 am-form-label">人数规模</label>
+              <div class="am-u-sm-9">
+                  <select name="scale"  required >
+	                     <option value="0-50人" ${company.scale=='0-50人'?'selected':'' }>0-50人</option>
+	                <option value="50-100人"  ${company.scale=='50-100人'?'selected':'' }>50-100人</option>
+	                <option value="100-500人"  ${company.scale=='100-500人'?'selected':'' }>100-500人</option>
+	                 <option value="500人以上"  ${company.scale=='500人以上'?'selected':'' }>500人以上</option>
+	              </select>
+              </div>
+            </div>
+
+			
+         	<div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">工作岗位</label>
+              <div class="am-u-sm-9">
+                <input  type="text" id="name" placeholder="企业名称 / company"   value="${jobRecord.name }"  >
+              </div>
+            </div>
+          
+            
+            <div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">招聘人数</label>
+              <div class="am-u-sm-9">
+                <input name="number" type="text" id="name" placeholder="招聘人数 / number"  value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-3 am-form-label">结算</label>
+            <div class="am-u-sm-9">
+            	<select  id="doc-select-1" name="type" >
+					<option value="1" ${jobRecord.type=='1'?'selected':'' }>同工同酬</option>
+					<option value="0" ${jobRecord.type=='0'?'selected':'' }>按小时计算</option>
+				</select>
+            </div>
+            </div>
+            
+             <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-3 am-form-label">薪资</label>
+            <div class="am-u-sm-9">
+            	<select  id="doc-select-1" name="unit" >
+					<option value="1" ${unit=='1'?'selected':'' }>月薪</option>
+					<option value="0" ${unit=='0'?'selected':'' }>时新</option>
+				</select>
+            </div>
+            </div>
+            
+            <div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">基本工资</label>
+              <div class="am-u-sm-9">
+                <input name="salary" type="text" id="name" placeholder="基本工资 / Salary"  value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">加班工资</label>
+              <div class="am-u-sm-9">
+                <input name="moreSalary" type="text" id="name" placeholder="加班工资 / More-Salary"  value="${jobRecord.name }" >
+              </div>
+            </div>
+           
+            
+            <div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">联系人</label>
+              <div class="am-u-sm-9">
+                <input name="linkMan" type="text" id="name" placeholder="联系人 / Link-Man"  value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">联系人电话</label>
+              <div class="am-u-sm-9">
+                <input name="linkPhone" type="tel" id="name" placeholder="联系人电话 / Link-Phone"  value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+            <div class="am-form-group">
+            <label for="user-name" class="am-u-sm-3 am-form-label">工作类别</label>
+            <div class="am-u-sm-9">
+            	<select  id="doc-select-1" name="classify" >
+					<option value="假期工" ${jobRecord.classify=='假期工'?'selected':'' }>假期工</option>
+					<option value="长期工" ${jobRecord.classify=='长期工'?'selected':'' }>长期工</option>
+					<option value="实习就业" ${jobRecord.classify=='实习就业'?'selected':'' }>实习就业</option>
+				</select>
+            </div>
+            </div>
+            
+            
+            <div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">福利</label>
+              <div class="am-u-sm-9">
+                <input name="label" type="text" id="name" placeholder="福利 / Label"  value="${jobRecord.name }" >
+              </div>
+            </div>
+            
+             <div class="am-form-group am-form-inline">
+              <label for="user-email" class="am-u-sm-3 am-form-label">工作地址</label>
+	             <div class="am-u-md-9 am-u-sm-9" style="padding-left: 0px;padding-right: 0px;">
+	              <div class=" am-u-sm-6 am-u-md-4">
+			      <select id="s_province" name="province"   pattern="^(?!省份).*$"   value="${jobRecord.name }" >
+			        <option value="option1">选项一...</option>
+			        <option value="option2">选项二.....</option>
+			        <option value="option3">选项三........</option>
+			      </select>
+			    </div>
+			     <div class=" am-u-sm-6 am-u-md-4 am-form-group" >
+			      <select id="s_city" name="city"   pattern="^(?!地级市).*$"   value="${jobRecord.name }" >
+			        <option value="option1">选项一...</option>
+			        <option value="option2">选项二.....</option>
+			        <option value="option3">选项三........</option>
+			      </select>
+			    </div>
+			    <div class="am-u-sm-12 am-u-md-4  am-u-end">
+			      <select id="s_county" name="region"   pattern="^(?!市、县级市).*$"   value="${jobRecord.name }" >
+			        <option value="option1">选项一...</option>
+			        <option value="option2">选项二.....</option>
+			        <option value="option3">选项三........</option>
+			      </select>
+			    </div>
+			    </div>
+            </div>
+
+			<div class="am-form-group">
+              <label for="user-name" class="am-u-sm-3 am-form-label">具体地址</label>
+              <div class="am-u-sm-9">
+                <input name="details" type="text" id="name" placeholder="具体地址 / details"  value="${jobRecord.name }" >
+              </div>
+            </div>
+			
+
+            <div class="am-form-group">
+              <div class="am-u-sm-9 am-u-sm-push-3">
+              <button onclick="registerCompany()" type="button" class="am-btn am-btn-primary am-btn-block">修改企业信息</button>
+              </div>
+            </div>
+            <input name="id" type="text" id="id"  value="${jobRecord.id }" style="visibility: hidden;width:1px;height:1px;">
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="admin-content-footer">
+      <hr>
+      <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+    </footer>
+
+  </div>
+
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<footer>
+  <hr>
+  <p class="am-padding-left">©Copyright &copy;2017 All Rights Reserved huizhouxueyuan development team</p>
+</footer>
+
+<!--[if lt IE 9]>
+<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/amazeui.min.js"></script>
+
+<script src="../assets/js/app.js"></script>
+<script class="resources library" src="/HROA/company/js/area.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/dist/amazeui.dialog.js"></script>
+<script type="text/javascript">_init_area();</script>
+<script type="text/javascript">
+
+$('#doc-vld-msg').validator({
+    onValid: function(validity) {
+      $(validity.field).closest('.am-form-group').find('.am-alert').hide();
+    },
+    onInValid: function(validity) {
+      var $field = $(validity.field);
+      var $group = $field.closest('.am-form-group');
+      var $alert = $group.find('.am-alert');
+      // 使用自定义的提示信息 或 插件内置的提示信息
+      var msg = $field.data('validationMessage') || this.getValidationMessage(validity);
+      $alert.html(msg).show();
+    }
+  });
+
+var showArea = function(){
+	Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" + 	
+	Gid('s_city').value + " - 县/区" + 
+	Gid('s_county').value + "</h3>"
+}
+
+window.onload=function(){
+ $("#s_province").find("option[value='${jobRecord.province}']").attr("selected",true);
+ $("#s_province").trigger("change");
+ $("#s_city").find("option[value='${jobRecord.city}']").attr("selected",true);
+ $("#s_city").trigger("change");
+ $("#s_county").find("option[value='${jobRecord.region}']").attr("selected",true);
+ $(".am-form-success").removeClass("am-form-success");
+  $(".am-field-valid").removeClass("am-field-valid");
+}
+
+function do_confirm(content,do_confirm_after){
+ AMUI.dialog.confirm(
+		 { title: '提示', 
+		   content: content, 
+		   onConfirm: do_confirm_after, 
+		   onCancel: function() { console.log('onCancel') 
+		 } });
+}
+function registerCompany(){
+	$("form:first").validator('isFormValid')
+	if($(".am-field-error").size()==0)
+	do_confirm("确认添加?", function() {
+		$("form:first").submit();
+	});
+}
+
+</script>
+</body>
+</html>

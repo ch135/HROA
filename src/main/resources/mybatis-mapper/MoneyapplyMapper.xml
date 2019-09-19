@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.MoneyapplyDao" >
+  <resultMap id="BaseResultMap" type="com.hroa.model.Moneyapply" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="freetime" property="freetime" jdbcType="DATE" />
+    <result column="usetime" property="usetime" jdbcType="DATE" />
+    <result column="usemoney" property="usemoney" jdbcType="DECIMAL" />
+    <result column="usetype" property="usetype" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="vouchername" property="vouchername" jdbcType="VARCHAR" />
+    <result column="agreenname" property="agreenname" jdbcType="VARCHAR" />
+    <result column="usepeople" property="usepeople" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="spendunit" property="spendunit" jdbcType="VARCHAR" />
+    <result column="detail" property="detail" jdbcType="VARCHAR" />
+    <result column="useplace" property="useplace" jdbcType="VARCHAR" />
+    <result column="applytype" property="applytype" jdbcType="VARCHAR" />
+    <result column="fristcheck" property="fristcheck" jdbcType="INTEGER" />
+    <result column="secondcheck" property="secondcheck" jdbcType="INTEGER" />
+    <result column="thirdcheck" property="thirdcheck" jdbcType="INTEGER" />
+    <result column="result" property="result" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, phone, freetime, usetime, usemoney, usetype, username, vouchername, agreenname, 
+    usepeople, department, spendunit, detail, useplace, applytype, fristcheck, secondcheck, 
+    thirdcheck, result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from moneyapply
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="getMoneyCount" resultType="Integer" parameterType="java.lang.Integer">
+  	select Count(*) from moneyapply 
+  	where result=0 and
+  	<if test="person==1">
+  		fristcheck=0
+  	</if>
+  	<if test="person==2">
+  		secondcheck=0
+  	</if>
+  	<if test="person==3">
+  		fristcheck=1 and secondcheck=1 and thirdcheck=0
+  	</if>
+  </select>
+  <select id="getDayNum" resultType="Integer" parameterType="Map">
+  	select Count(*) from moneyapply 
+  	where result=0 and freetime=#{day} and
+  	<if test="power==1">
+  		fristcheck=0
+  	</if>
+  	<if test="power==2">
+  		secondcheck=0
+  	</if>
+  	<if test="power==3">
+  		fristcheck=1 and secondcheck=1 and thirdcheck=0
+  	</if>
+  </select>
+  <select id="getMoney" parameterType="Map" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"/>
+  		from moneyapply
+  		where result=0 and
+  		<if test="person==1 and start!=null and pagesize!=null">
+  			fristcheck=0 order by freetime desc limit #{start},#{pagesize}
+  		</if>
+  		<if test="person==2 and start!=null and pagesize!=null">
+  			secondcheck=0 order by freetime desc limit #{start},#{pagesize}
+  		</if>
+  		<if test="person==3 and start!=null and pagesize!=null">
+  			fristcheck=1 and secondcheck=1 and thirdcheck=0 order by freetime desc limit #{start},#{pagesize}
+  		</if>
+  </select>
+  
+  <select id="getCountByName" resultType="Integer" parameterType="Map">
+  	select Count(*) from moneyapply where vouchername=#{name} and result=0 and
+  	<if test="person==1">
+  		fristcheck=0
+  	</if>
+  	<if test="person==2">
+  		secondcheck=0
+  	</if>
+  	<if test="person==3">
+  		fristcheck=1 and secondcheck=1 and thirdcheck=0
+  	</if>
+  </select>
+  <select id="getMoneyByname" parameterType="Map" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"/>
+  		from moneyapply where vouchername=#{name} and result=0 and
+  		<if test="person==1 and start!=null and pagesize!=null">
+  			fristcheck=0 order by freetime desc limit #{start},#{pagesize}
+	  	</if>
+	  	<if test="person==2 and start!=null and pagesize!=null">
+	  		secondcheck=0 order by freetime desc limit #{start},#{pagesize}
+	  	</if>
+	  	<if test="person==3 and start!=null and pagesize!=null">
+	  		fristcheck=1 and secondcheck=1 and thirdcheck=0 order by freetime desc limit #{start},#{pagesize}
+	  	</if>
+  </select>
+  
+  <select id="getHistoryCount" resultType="Integer" parameterType="java.lang.Integer">
+  	select Count(*) from moneyapply where result=0 and
+  	<if test="person==1">
+  		fristcheck!=0
+  	</if>
+  	<if test="person==2">
+  		secondcheck!=0
+  	</if>
+  	<if test="person==3">
+  		fristcheck=1 and secondcheck=1 and thirdcheck!=0
+  	</if>
+  </select>
+  <select id="getHistoryMoney" parameterType="Map" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"/>
+  		from moneyapply where result=0 and
+  		<if test="person==1 and start!=null and pagesize!=null">
+  			fristcheck!=0 order by freetime desc limit #{start},#{pagesize}
+	  	</if>
+	  	<if test="person==2 and start!=null and pagesize!=null">
+	  		secondcheck!=0 order by freetime desc limit #{start},#{pagesize}
+	  	</if>
+	  	<if test="person==3 and start!=null and pagesize!=null">
+	  		fristcheck=1 and secondcheck=1 and thirdcheck!=0 order by freetime desc limit #{start},#{pagesize}
+	  	</if>
+  </select> 
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from moneyapply
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hroa.model.Moneyapply" >
+    insert into moneyapply (id, phone, freetime, 
+      usetime, usemoney, usetype, 
+      username, vouchername, agreenname, 
+      usepeople, department, spendunit, 
+      detail, useplace, applytype, 
+      fristcheck, secondcheck, thirdcheck, 
+      result)
+    values (#{id,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{freetime,jdbcType=DATE}, 
+      #{usetime,jdbcType=DATE}, #{usemoney,jdbcType=DECIMAL}, #{usetype,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{vouchername,jdbcType=VARCHAR}, #{agreenname,jdbcType=VARCHAR}, 
+      #{usepeople,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR}, #{spendunit,jdbcType=VARCHAR}, 
+      #{detail,jdbcType=VARCHAR}, #{useplace,jdbcType=VARCHAR}, #{applytype,jdbcType=VARCHAR}, 
+      #{fristcheck,jdbcType=INTEGER}, #{secondcheck,jdbcType=INTEGER}, #{thirdcheck,jdbcType=INTEGER}, 
+      #{result,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hroa.model.Moneyapply" >
+    insert into moneyapply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="freetime != null" >
+        freetime,
+      </if>
+      <if test="usetime != null" >
+        usetime,
+      </if>
+      <if test="usemoney != null" >
+        usemoney,
+      </if>
+      <if test="usetype != null" >
+        usetype,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="vouchername != null" >
+        vouchername,
+      </if>
+      <if test="agreenname != null" >
+        agreenname,
+      </if>
+      <if test="usepeople != null" >
+        usepeople,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="spendunit != null" >
+        spendunit,
+      </if>
+      <if test="detail != null" >
+        detail,
+      </if>
+      <if test="useplace != null" >
+        useplace,
+      </if>
+      <if test="applytype != null" >
+        applytype,
+      </if>
+      <if test="fristcheck != null" >
+        fristcheck,
+      </if>
+      <if test="secondcheck != null" >
+        secondcheck,
+      </if>
+      <if test="thirdcheck != null" >
+        thirdcheck,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="freetime != null" >
+        #{freetime,jdbcType=DATE},
+      </if>
+      <if test="usetime != null" >
+        #{usetime,jdbcType=DATE},
+      </if>
+      <if test="usemoney != null" >
+        #{usemoney,jdbcType=DECIMAL},
+      </if>
+      <if test="usetype != null" >
+        #{usetype,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="vouchername != null" >
+        #{vouchername,jdbcType=VARCHAR},
+      </if>
+      <if test="agreenname != null" >
+        #{agreenname,jdbcType=VARCHAR},
+      </if>
+      <if test="usepeople != null" >
+        #{usepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="spendunit != null" >
+        #{spendunit,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="useplace != null" >
+        #{useplace,jdbcType=VARCHAR},
+      </if>
+      <if test="applytype != null" >
+        #{applytype,jdbcType=VARCHAR},
+      </if>
+      <if test="fristcheck != null" >
+        #{fristcheck,jdbcType=INTEGER},
+      </if>
+      <if test="secondcheck != null" >
+        #{secondcheck,jdbcType=INTEGER},
+      </if>
+      <if test="thirdcheck != null" >
+        #{thirdcheck,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.Moneyapply" >
+    update moneyapply
+    <set >
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="freetime != null" >
+        freetime = #{freetime,jdbcType=DATE},
+      </if>
+      <if test="usetime != null" >
+        usetime = #{usetime,jdbcType=DATE},
+      </if>
+      <if test="usemoney != null" >
+        usemoney = #{usemoney,jdbcType=DECIMAL},
+      </if>
+      <if test="usetype != null" >
+        usetype = #{usetype,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="vouchername != null" >
+        vouchername = #{vouchername,jdbcType=VARCHAR},
+      </if>
+      <if test="agreenname != null" >
+        agreenname = #{agreenname,jdbcType=VARCHAR},
+      </if>
+      <if test="usepeople != null" >
+        usepeople = #{usepeople,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="spendunit != null" >
+        spendunit = #{spendunit,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null" >
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="useplace != null" >
+        useplace = #{useplace,jdbcType=VARCHAR},
+      </if>
+      <if test="applytype != null" >
+        applytype = #{applytype,jdbcType=VARCHAR},
+      </if>
+      <if test="fristcheck != null" >
+        fristcheck = #{fristcheck,jdbcType=INTEGER},
+      </if>
+      <if test="secondcheck != null" >
+        secondcheck = #{secondcheck,jdbcType=INTEGER},
+      </if>
+      <if test="thirdcheck != null" >
+        thirdcheck = #{thirdcheck,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hroa.model.Moneyapply" >
+    update moneyapply
+    set phone = #{phone,jdbcType=VARCHAR},
+      freetime = #{freetime,jdbcType=DATE},
+      usetime = #{usetime,jdbcType=DATE},
+      usemoney = #{usemoney,jdbcType=DECIMAL},
+      usetype = #{usetype,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      vouchername = #{vouchername,jdbcType=VARCHAR},
+      agreenname = #{agreenname,jdbcType=VARCHAR},
+      usepeople = #{usepeople,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      spendunit = #{spendunit,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      useplace = #{useplace,jdbcType=VARCHAR},
+      applytype = #{applytype,jdbcType=VARCHAR},
+      fristcheck = #{fristcheck,jdbcType=INTEGER},
+      secondcheck = #{secondcheck,jdbcType=INTEGER},
+      thirdcheck = #{thirdcheck,jdbcType=INTEGER},
+      result = #{result,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.RbacDao">
+    <resultMap id="CommentBaseUserMap" type="com.hroa.model.AdminModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="account" property="account" jdbcType="INTEGER" />
+		<result column="nickname" property="nickname" jdbcType="INTEGER" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="login_time" property="login_time" jdbcType="VARCHAR" />
+		<result column="deptid" property="deptid" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="role_id" property="role_id" jdbcType="INTEGER" />
+		<association property="deptInfo" javaType="com.hroa.model.DeptModel">             
+			<id property="id" column="id"/>
+	        <result property="dpname" column="dpname"/>
+	    </association>
+	</resultMap>
+	
+	<sql id="userInfoBase_Column_List" >
+    	id,account,login_time,deptid,status,role_id
+    </sql>
+    <sql id="userInfoByIdBase_Column_List" >
+    	ad.id,ad.account,ad.nickname,ad.role_id,dp.dpname
+    </sql>
+	<!-- 添加系统用户 -->
+	<insert id="addUser" parameterType="com.hroa.model.AdminModel" useGeneratedKeys="true" keyProperty="id">
+	    insert into oa_admin (account,password,nickname,deptid
+	    	)
+	    values (#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},#{nickname,jdbcType=VARCHAR},#{deptid,jdbcType=INTEGER}
+	    	)
+  	</insert>
+  	
+  	<!-- 检测账号是否存在 -->
+  	<select id="checkAccIsOn" resultType="int"  parameterType="java.lang.String" >
+		select count(*) from oa_admin where account=#{0}
+	</select>
+	
+	<!-- 获取用户数量 -->
+	<select id="getAdminAmount" resultType="int"  parameterType="java.lang.String" >
+		select count(*) from oa_admin where status=0
+	</select>
+	
+	<!-- 根据ID获取用户信息 -->
+	<select id="getUserInfoById" resultMap="CommentBaseUserMap"  parameterType="java.lang.Integer" >
+		select 
+		<include refid="userInfoByIdBase_Column_List" />
+		from oa_admin ad,oa_department dp
+		where ad.deptid=dp.id and ad.id= #{0}
+	</select>
+	
+	<!-- 获取用户信息 -->
+	<select id="getAllAdmin" resultMap="CommentBaseUserMap"  parameterType="java.lang.Integer" >
+		select * from oa_admin ad left join oa_department dp 
+        on ad.deptid =dp.id and ad.status=0
+        limit #{0},#{1}
+	</select>
+	
+	
+	
+									<!--角色模块 -->
+	 <resultMap id="CommentBaseRoleMap" type="com.hroa.model.RoleModel">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="role_name" property="role_name" jdbcType="INTEGER" />
+		<result column="role_describes" property="role_describes" jdbcType="INTEGER" />
+		<result column="role_powers" property="role_powers" jdbcType="VARCHAR" />
+		<result column="dpname" property="dpname" jdbcType="VARCHAR"/>
+		<result column="deptid" property="deptid" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="roleInfoBase_Column_List" >
+    	ro.id,ro.role_name,ro.role_describes,ro.role_powers,ro.deptid,dp.dpname
+    </sql>								
+	
+	<!-- 根据角色ID获取角色信息-->
+	<select id="gtRoleInfo" resultType="com.hroa.model.RoleModel"  parameterType="java.lang.Integer" >
+		select id,role_name,role_describes,role_powers from oa_role where id=#{0}
+	</select>
+	
+	<!-- 分页获取角色集合-->
+    <select id="getAllRole" resultMap="CommentBaseRoleMap"  parameterType="java.lang.Integer" >
+		select
+		<include refid="roleInfoBase_Column_List"></include> 
+		from oa_role ro left join oa_department dp on ro.deptid =dp.id 
+		limit #{0},#{1} 
+	</select>
+	<!-- 获取角色集合 -->
+	<select id="getRoleList" resultType="com.hroa.model.RoleModel">
+		select id,role_name from oa_role 
+	</select>
+	<!-- 检测角色是否存在 -->
+	<select id="checkRoleHasByNa" resultType="int" parameterType="java.lang.String">
+		select count(*) from oa_role where role_name=#{0}
+	</select>
+	<insert id="addRole" parameterType="com.hroa.model.RoleModel" useGeneratedKeys="true" keyProperty="id">
+	    insert into oa_role (role_name,deptid
+	    	)
+	    values (#{role_name,jdbcType=VARCHAR},#{deptid,jdbcType=INTEGER}
+	    	)
+  	</insert>
+  	<!-- 根据角色ID更新角色权限 -->
+  	<update id="assignPrev" parameterType="com.hroa.model.RoleModel" flushCache="true">  
+        update oa_role  
+        <set>  
+            <if test="role_powers != null">  
+                role_powers= #{role_powers,jdbcType=VARCHAR},  
+            </if>
+        </set>  
+        where id = #{id,jdbcType=INTEGER}  
+    </update>  
+  	<!-- 根据角色ID获取角色权限 -->
+  	<select id="getPrevById" resultType="java.lang.String" parameterType="java.lang.Integer">
+		select role_powers from oa_role where id=#{0}
+	</select>
+  	<!-- 检测角色是否存在 -->
+	<select id="getRoleAmount" resultType="int">
+		select count(*) from oa_role
+	</select>
+
+
+									<!--部门模块 -->
+	<!-- 添加部门 -->
+	<insert id="addDept" parameterType="com.hroa.model.DeptModel" useGeneratedKeys="true" keyProperty="id">
+	    insert into oa_department (dpname
+	    	)
+	    values (#{0jdbcType=VARCHAR}
+	    	)
+  	</insert>
+  	<!-- 获取部门数量 -->
+  	<select id="getDeptAmount" resultType="int">
+		select count(*) from oa_department
+	</select>
+	<!-- 根据部门ID获取部门信息 -->
+	<select id="getDeptInfoById" resultType="com.hroa.model.DeptModel">
+		select id,dpname from oa_department where id=#{0}
+	</select>
+  	<!-- 分页获取部门信息 -->
+  	<select id="getAllDept" resultType="com.hroa.model.DeptModel"  parameterType="java.lang.Integer" >
+		select * from oa_department dp limit #{0},#{1} 
+	</select>
+	<!-- 获取所有的部门集合 -->
+	<select id="getDeptList" resultType="com.hroa.model.DeptModel">
+		select * from oa_department
+	</select>	
+	<!-- 更新部门信息 -->
+	<update id="alertDept" parameterType="com.hroa.model.DeptModel" flushCache="true">  
+        update oa_department  
+        <set>  
+            <if test="dpname != null">  
+                dpname= #{dpname,jdbcType=VARCHAR},  
+            </if>
+        </set>  
+        where id = #{id,jdbcType=INTEGER}  
+    </update>  
+</mapper>

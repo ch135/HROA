@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.LoginDao">
+	<select id="getAmount" resultType="int" parameterType="string">
+		select count(*) from sh_user where id >0;
+	</select>
+    <resultMap type="com.hroa.model.AdminModel" id="lgInfoMap">
+        <id property="id" column="id"></id>
+        <result property="account" column="account" javaType="java.lang.String"/>
+        <result property="nickname" column="nickname" javaType="java.lang.String"/>
+        <result property="password" column="password" javaType="java.lang.String"/>
+        <result property="login_time" column="login_time" javaType="java.lang.String"/>
+        <result property="deptid" column="deptid" javaType="java.lang.Integer"/>
+        <result property="status" column="status" javaType="java.lang.Integer"/>
+        <result property="role_id" column="role_id" javaType="java.lang.Integer"/>
+        <collection property="roleInfoList" javaType="ArrayList" column="role_id" ofType="com.hroa.model.RoleModel" select="com.hroa.dao.RbacDao.gtRoleInfo">
+           	<id property="id" column="id"></id>
+           	<result property="rname" column="rolename" javaType="java.lang.String"></result>
+           	<result property="rdesc" column="describes" javaType="java.lang.String"></result>
+        </collection>
+   	</resultMap>
+    <!-- <select id="getDeptPostList" resultMap="deptPost">
+        select * from dept inner join post
+        on dept.did = post.did
+    </select> -->
+    <select id="login" parameterType="java.lang.String" resultMap="lgInfoMap">  
+    	select * from  oa_admin ad where ad.account =#{0} and ad.password=#{1};  
+    </select>  
+</mapper>

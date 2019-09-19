@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.JobLogDao">
+	<sql id="jobLogInfoBase_Column_List">
+	id,title,content,addtime,classfy,user_id,dept_id
+	</sql>
+	<!-- 添加日志 -->
+	<insert id="addJobLog" parameterType="com.hroa.model.JobLogModel" useGeneratedKeys="true" keyProperty="id">
+	    insert into oa_joblog (title,content,addtime,classfy,user_id,dept_id
+	    	)
+	    values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},#{addtime,jdbcType=VARCHAR},
+	    		#{classfy,jdbcType=INTEGER}, #{user_id,jdbcType=INTEGER},#{dept_id,jdbcType=INTEGER}
+	    	)
+  	</insert>
+  	<!-- 获取任务数量 -->
+	<select id="gtJbLgAmount" resultType="int">
+		select count(*) from oa_joblog
+	</select>
+  	<!-- 分页获取任务集合-->
+    <select id="gtJbLgByPages" resultType="com.hroa.model.JobLogModel"  parameterType="java.lang.Integer" >
+		select
+		<include refid="jobLogInfoBase_Column_List"></include> 
+		from oa_joblog limit #{0},#{1} 
+	</select>
+</mapper>

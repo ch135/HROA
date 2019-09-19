@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.SalarydetialDao" >
+  <resultMap id="BaseResultMap" type="com.hroa.model.Salarydetial" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="serial" property="serial" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="worktime" property="worktime" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="deserved" property="deserved" jdbcType="VARCHAR" />
+    <result column="meals" property="meals" jdbcType="VARCHAR" />
+    <result column="dinner" property="dinner" jdbcType="VARCHAR" />
+    <result column="otherprofit" property="otherprofit" jdbcType="VARCHAR" />
+    <result column="salary" property="salary" jdbcType="VARCHAR" />
+    <result column="tax" property="tax" jdbcType="VARCHAR" />
+    <result column="fine" property="fine" jdbcType="VARCHAR" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="sdcost" property="sdcost" jdbcType="VARCHAR" />
+    <result column="nontime" property="nontime" jdbcType="VARCHAR" />
+    <result column="otherfine" property="otherfine" jdbcType="VARCHAR" />
+    <result column="beneficent" property="beneficent" jdbcType="VARCHAR" />
+    <result column="ownleave" property="ownleave" jdbcType="VARCHAR" />
+    <result column="insurance" property="insurance" jdbcType="VARCHAR" />
+    <result column="borrow" property="borrow" jdbcType="VARCHAR" />
+    <result column="boardcost" property="boardcost" jdbcType="VARCHAR" />
+    <result column="allcost" property="allcost" jdbcType="VARCHAR" />
+    <result column="realwages" property="realwages" jdbcType="VARCHAR" />
+    <result column="salary_date" property="salaryDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="pageResultMap" type="com.hroa.model.Salarydetial">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="deserved" property="deserved" jdbcType="VARCHAR" />
+    <result column="salary" property="salary" jdbcType="VARCHAR" />
+    <result column="allcost" property="allcost" jdbcType="VARCHAR" />
+    <result column="realwages" property="realwages" jdbcType="VARCHAR" />
+    <result column="salary_date" property="salaryDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, admin_id, telephone, company, serial, number, name, worktime, price, deserved, 
+    meals, dinner, otherprofit, salary, tax, fine, sign, sdcost, nontime, otherfine, 
+    beneficent, ownleave, insurance, borrow, boardcost, allcost, realwages, salary_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from salarydetial
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from salarydetial
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hroa.model.Salarydetial" >
+    insert into salarydetial (id, admin_id, telephone, 
+      company, serial, number, 
+      name, worktime, price, 
+      deserved, meals, dinner, 
+      otherprofit, salary, tax, 
+      fine, sign, sdcost, 
+      nontime, otherfine, beneficent, 
+      ownleave, insurance, borrow, 
+      boardcost, allcost, realwages, 
+      salary_date)
+    values (#{id,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{serial,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{worktime,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
+      #{deserved,jdbcType=VARCHAR}, #{meals,jdbcType=VARCHAR}, #{dinner,jdbcType=VARCHAR}, 
+      #{otherprofit,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR}, #{tax,jdbcType=VARCHAR}, 
+      #{fine,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR}, #{sdcost,jdbcType=VARCHAR}, 
+      #{nontime,jdbcType=VARCHAR}, #{otherfine,jdbcType=VARCHAR}, #{beneficent,jdbcType=VARCHAR}, 
+      #{ownleave,jdbcType=VARCHAR}, #{insurance,jdbcType=VARCHAR}, #{borrow,jdbcType=VARCHAR}, 
+      #{boardcost,jdbcType=VARCHAR}, #{allcost,jdbcType=VARCHAR}, #{realwages,jdbcType=VARCHAR},
+      #{salaryDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hroa.model.Salarydetial" >
+    insert into salarydetial
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="serial != null" >
+        serial,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="worktime != null" >
+        worktime,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="deserved != null" >
+        deserved,
+      </if>
+      <if test="meals != null" >
+        meals,
+      </if>
+      <if test="dinner != null" >
+        dinner,
+      </if>
+      <if test="otherprofit != null" >
+        otherprofit,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+      <if test="tax != null" >
+        tax,
+      </if>
+      <if test="fine != null" >
+        fine,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="sdcost != null" >
+        sdcost,
+      </if>
+      <if test="nontime != null" >
+        nontime,
+      </if>
+      <if test="otherfine != null" >
+        otherfine,
+      </if>
+      <if test="beneficent != null" >
+        beneficent,
+      </if>
+      <if test="ownleave != null" >
+        ownleave,
+      </if>
+      <if test="insurance != null" >
+        insurance,
+      </if>
+      <if test="borrow != null" >
+        borrow,
+      </if>
+      <if test="boardcost != null" >
+        boardcost,
+      </if>
+      <if test="allcost != null" >
+        allcost,
+      </if>
+      <if test="realwages != null" >
+        realwages,
+      </if>
+      <if test="salaryDate != null" >
+        salary_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="serial != null" >
+        #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="worktime != null" >
+        #{worktime,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="deserved != null" >
+        #{deserved,jdbcType=VARCHAR},
+      </if>
+      <if test="meals != null" >
+        #{meals,jdbcType=VARCHAR},
+      </if>
+      <if test="dinner != null" >
+        #{dinner,jdbcType=VARCHAR},
+      </if>
+      <if test="otherprofit != null" >
+        #{otherprofit,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        #{tax,jdbcType=VARCHAR},
+      </if>
+      <if test="fine != null" >
+        #{fine,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="sdcost != null" >
+        #{sdcost,jdbcType=VARCHAR},
+      </if>
+      <if test="nontime != null" >
+        #{nontime,jdbcType=VARCHAR},
+      </if>
+      <if test="otherfine != null" >
+        #{otherfine,jdbcType=VARCHAR},
+      </if>
+      <if test="beneficent != null" >
+        #{beneficent,jdbcType=VARCHAR},
+      </if>
+      <if test="ownleave != null" >
+        #{ownleave,jdbcType=VARCHAR},
+      </if>
+      <if test="insurance != null" >
+        #{insurance,jdbcType=VARCHAR},
+      </if>
+      <if test="borrow != null" >
+        #{borrow,jdbcType=VARCHAR},
+      </if>
+      <if test="boardcost != null" >
+        #{boardcost,jdbcType=VARCHAR},
+      </if>
+      <if test="allcost != null" >
+        #{allcost,jdbcType=VARCHAR},
+      </if>
+      <if test="realwages != null" >
+        #{realwages,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryDate != null" >
+        #{salaryDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.Salarydetial" >
+    update salarydetial
+    <set >
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="serial != null" >
+        serial = #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="worktime != null" >
+        worktime = #{worktime,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="deserved != null" >
+        deserved = #{deserved,jdbcType=VARCHAR},
+      </if>
+      <if test="meals != null" >
+        meals = #{meals,jdbcType=VARCHAR},
+      </if>
+      <if test="dinner != null" >
+        dinner = #{dinner,jdbcType=VARCHAR},
+      </if>
+      <if test="otherprofit != null" >
+        otherprofit = #{otherprofit,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="tax != null" >
+        tax = #{tax,jdbcType=VARCHAR},
+      </if>
+      <if test="fine != null" >
+        fine = #{fine,jdbcType=VARCHAR},
+      </if>
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="sdcost != null" >
+        sdcost = #{sdcost,jdbcType=VARCHAR},
+      </if>
+      <if test="nontime != null" >
+        nontime = #{nontime,jdbcType=VARCHAR},
+      </if>
+      <if test="otherfine != null" >
+        otherfine = #{otherfine,jdbcType=VARCHAR},
+      </if>
+      <if test="beneficent != null" >
+        beneficent = #{beneficent,jdbcType=VARCHAR},
+      </if>
+      <if test="ownleave != null" >
+        ownleave = #{ownleave,jdbcType=VARCHAR},
+      </if>
+      <if test="insurance != null" >
+        insurance = #{insurance,jdbcType=VARCHAR},
+      </if>
+      <if test="borrow != null" >
+        borrow = #{borrow,jdbcType=VARCHAR},
+      </if>
+      <if test="boardcost != null" >
+        boardcost = #{boardcost,jdbcType=VARCHAR},
+      </if>
+      <if test="allcost != null" >
+        allcost = #{allcost,jdbcType=VARCHAR},
+      </if>
+      <if test="realwages != null" >
+        realwages = #{realwages,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryDate != null" >
+        salary_date = #{salaryDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hroa.model.Salarydetial" >
+    update salarydetial
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      serial = #{serial,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      worktime = #{worktime,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      deserved = #{deserved,jdbcType=VARCHAR},
+      meals = #{meals,jdbcType=VARCHAR},
+      dinner = #{dinner,jdbcType=VARCHAR},
+      otherprofit = #{otherprofit,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=VARCHAR},
+      tax = #{tax,jdbcType=VARCHAR},
+      fine = #{fine,jdbcType=VARCHAR},
+      sign = #{sign,jdbcType=VARCHAR},
+      sdcost = #{sdcost,jdbcType=VARCHAR},
+      nontime = #{nontime,jdbcType=VARCHAR},
+      otherfine = #{otherfine,jdbcType=VARCHAR},
+      beneficent = #{beneficent,jdbcType=VARCHAR},
+      ownleave = #{ownleave,jdbcType=VARCHAR},
+      insurance = #{insurance,jdbcType=VARCHAR},
+      borrow = #{borrow,jdbcType=VARCHAR},
+      boardcost = #{boardcost,jdbcType=VARCHAR},
+      allcost = #{allcost,jdbcType=VARCHAR},
+      realwages = #{realwages,jdbcType=VARCHAR},
+      salary_date = #{salaryDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectInfoByPage" resultMap="pageResultMap" parameterType="java.lang.Integer">
+    select id,company,number,name,deserved,salary,allcost,realwages,salary_date from salarydetial ORDER BY id DESC limit #{page,jdbcType=INTEGER},20
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*) from salarydetial
+  </select>
+  <select id="selectAdminNameById" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select username from sh_admin where id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <select id="selectInfoByNumber" resultMap="pageResultMap" parameterType="java.lang.String">
+    select id,company,number,name,deserved,salary,allcost,realwages,salary_date from salarydetial
+    where number = #{number,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertInfoBatch" parameterType="java.util.List">
+    insert into salarydetial (admin_id, telephone,
+    company, serial, number,
+    name, worktime, price,
+    deserved, meals, dinner,
+    otherprofit, salary, tax,
+    fine, sign, sdcost,
+    nontime, otherfine, beneficent,
+    ownleave, insurance, borrow,
+    boardcost, allcost, realwages,
+    salary_date)
+    values
+    <foreach collection="list" item="item" index="index"
+             separator=",">
+      (#{item.adminId}, #{item.telephone}, #{item.company},
+      #{item.serial}, #{item.number},#{item.name}, #{item.worktime},
+      #{item.price}, #{item.deserved},#{item.meals}, #{item.dinner},
+      #{item.otherprofit}, #{item.salary},#{item.tax}, #{item.fine},
+      #{item.sign}, #{item.sdcost},#{item.nontime}, #{item.otherfine},
+      #{item.beneficent}, #{item.ownleave},#{item.insurance}, #{item.borrow},
+      #{item.boardcost}, #{item.allcost}, #{item.realwages}, #{item.salaryDate})
+    </foreach>
+  </insert>
+</mapper>

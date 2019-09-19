@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.TaskDao">
+	<sql id="taskInfoBase_Column_List">
+		id,title,content,addtime,dept_id
+	</sql>
+	<sql id="gtUserInfoBase_Column_List" >
+    	id,account,nickname,login_time,deptid
+    </sql>
+	<!-- 添加任务 -->
+	<insert id="addTask" parameterType="com.hroa.model.TaskModel" useGeneratedKeys="true" keyProperty="id">
+	    insert into oa_task (title,content,dept_id
+	    	)
+	    values (#{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR},#{dept_id,jdbcType=INTEGER}
+	    	)
+  	</insert>
+  	<!-- 获取任务数量 -->
+	<select id="gtTaskAmount" resultType="int">
+		select count(*) from oa_task 
+	</select>
+  	<!-- 分页获取任务集合-->
+    <select id="gtTsByPages" resultType="com.hroa.model.TaskModel"  parameterType="java.lang.Integer" >
+		select
+		<include refid="taskInfoBase_Column_List"></include> 
+		from oa_task limit #{0},#{1} 
+	</select>
+	<!-- 根据部门ID获取用户集合 -->
+	<select id="gtAdByDeptId" resultType="com.hroa.model.AdminModel"  parameterType="java.lang.Integer" >
+		select
+		<include refid="gtUserInfoBase_Column_List"></include> 
+		from oa_admin where deptid=#{0}
+	</select>
+	<!-- 批量更新用户的任务ID -->
+	<update id="upTsId"  parameterType="java.util.List">  
+          <foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+                update oa_admin   
+                <set>  
+                  task_Id=#{item.task_id}
+                </set>  
+                where id = ${item.id}  
+         </foreach>       
+    </update> 
+	<!-- 批量获取用户的任务ID -->
+    <select id="getTaskIdList" resultType="com.hroa.model.AdminModel" parameterType="java.util.Arrays">  
+        SELECT id,task_id from oa_admin where id in  
+        <foreach item="item" index="index" collection="array"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+    </select>
+    <!-- 根据任务ID更新users_id字段 -->
+    <update id="upUsersId"  parameterType="com.hroa.model.TaskModel" flushCache="true">  
+        update oa_task  
+        <set>  
+            <if test="users_id!= null">  
+                users_id = #{users_id,jdbcType=VARCHAR},  
+            </if>    
+        </set>  
+        where id = #{id,jdbcType=INTEGER}  
+    </update>
+    <!-- 根据任务ID获取users_id -->
+    <select id="gtUsersId" resultType="java.lang.String" parameterType="java.lang.Integer">
+		select users_id from oa_task where id=#{0}
+	</select>
+	 <!-- 根据用户ID获取task_id -->
+    <select id="getTaskId" resultType="java.lang.String" parameterType="java.lang.Integer">
+		select task_id from oa_admin where id=#{0}
+	</select>
+	<!-- 根据taskId批量获取task 集合 -->
+	<select id="gtTaskListByTsId" resultType="com.hroa.model.AdminModel" parameterType="java.util.Arrays">  
+        SELECT id,title,content,addtime from oa_task where id in  
+        <foreach item="item" index="index" collection="array"  
+                 open="(" separator="," close=")">  
+            #{item}  
+        </foreach>  
+    </select>
+</mapper>

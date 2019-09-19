@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.ShUserDao">
+	<resultMap id="BaseResultMap" type="com.hroa.model.ShUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="realname" property="realname" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="VARCHAR" />
+		<result column="icno" property="icno" jdbcType="VARCHAR" />
+		<result column="IDcard" property="idcard" jdbcType="VARCHAR" />
+		<result column="school" property="school" jdbcType="VARCHAR" />
+		<result column="major" property="major" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="region" property="region" jdbcType="VARCHAR" />
+		<result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+		<result column="requires" property="requires" jdbcType="VARCHAR" />
+		<result column="eager" property="eager" jdbcType="INTEGER" />
+		<result column="job_type" property="jobType" jdbcType="INTEGER" />
+		<result column="entry_time" property="entryTime" jdbcType="VARCHAR" />
+		<result column="balance" property="balance" jdbcType="DECIMAL" />
+		<result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+		<result column="point" property="point" jdbcType="INTEGER" />
+		<result column="sign" property="sign" jdbcType="INTEGER" />
+		<result column="is_supplement" property="isSupplement" jdbcType="INTEGER" />
+		<result column="registerdate" property="registerdate" jdbcType="VARCHAR" />
+		<result column="logindate" property="logindate" jdbcType="VARCHAR" />
+		<result column="agent_id" property="agentId" jdbcType="INTEGER" />
+		<result column="agent_apply" property="agentApply" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, telephone, username, password, realname, sex, birthday, icno, IDcard, school,
+		major, province, city, region, link_phone, requires, eager, job_type, entry_time,
+		balance, bank_card, point, sign, is_supplement, registerdate, logindate, agent_id,
+		agent_apply
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sh_user
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<select id="selectByTelephone" resultMap="BaseResultMap" parameterType="java.lang.String">
+	select 
+		<include refid="Base_Column_List" />
+		from sh_user
+		where telephone = #{telephone,jdbcType=VARCHAR} limit 1
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sh_user
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.hroa.model.ShUser">
+		insert into sh_user (id, telephone, username,
+		password, realname, sex,
+		birthday, icno, IDcard,
+		school, major, province,
+		city, region, link_phone,
+		requires, eager, job_type,
+		entry_time, balance, bank_card,
+		point, sign, is_supplement,
+		registerdate, logindate,
+		agent_id,
+		agent_apply)
+		values (#{id,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR},
+		#{birthday,jdbcType=VARCHAR}, #{icno,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR},
+		#{school,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR},
+		#{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, #{linkPhone,jdbcType=VARCHAR},
+		#{requires,jdbcType=VARCHAR}, #{eager,jdbcType=INTEGER}, #{jobType,jdbcType=INTEGER},
+		#{entryTime,jdbcType=VARCHAR},
+		#{balance,jdbcType=DECIMAL}, #{bankCard,jdbcType=VARCHAR},
+		#{point,jdbcType=INTEGER}, #{sign,jdbcType=INTEGER}, #{isSupplement,jdbcType=INTEGER},
+		#{registerdate,jdbcType=VARCHAR}, #{logindate,jdbcType=VARCHAR}, #{agentId,jdbcType=INTEGER},
+		#{agentApply,jdbcType=INTEGER})
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.ShUser">
+		update sh_user
+		<set>
+			<if test="telephone != null">
+				telephone = #{telephone,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="realname != null">
+				realname = #{realname,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=VARCHAR},
+			</if>
+			<if test="icno != null">
+				icno = #{icno,jdbcType=VARCHAR},
+			</if>
+			<if test="idcard != null">
+				IDcard = #{idcard,jdbcType=VARCHAR},
+			</if>
+			<if test="school != null">
+				school = #{school,jdbcType=VARCHAR},
+			</if>
+			<if test="major != null">
+				major = #{major,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="region != null">
+				region = #{region,jdbcType=VARCHAR},
+			</if>
+			<if test="linkPhone != null">
+				link_phone = #{linkPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="requires != null">
+				requires = #{requires,jdbcType=VARCHAR},
+			</if>
+			<if test="eager != null">
+				eager = #{eager,jdbcType=INTEGER},
+			</if>
+			<if test="jobType != null">
+				job_type = #{jobType,jdbcType=INTEGER},
+			</if>
+			<if test="entryTime != null">
+				entry_time = #{entryTime,jdbcType=VARCHAR},
+			</if>
+			<if test="balance != null">
+				balance = #{balance,jdbcType=DECIMAL},
+			</if>
+			<if test="bankCard != null">
+				bank_card = #{bankCard,jdbcType=VARCHAR},
+			</if>
+			<if test="point != null">
+				point = #{point,jdbcType=INTEGER},
+			</if>
+			<if test="sign != null">
+				sign = #{sign,jdbcType=INTEGER},
+			</if>
+			<if test="isSupplement != null">
+				is_supplement = #{isSupplement,jdbcType=INTEGER},
+			</if>
+			<if test="registerdate != null">
+				registerdate = #{registerdate,jdbcType=VARCHAR},
+			</if>
+			<if test="logindate != null">
+				logindate = #{logindate,jdbcType=VARCHAR},
+			</if>
+			<if test="agentId != null">
+				agent_id = #{agentId,jdbcType=INTEGER},
+			</if>
+			<if test="agentApply != null">
+				agent_apply = #{agentApply,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectShUserTotal" parameterType="com.hroa.util.Page" resultType="java.lang.Integer">
+		select count(*) from sh_user where 1=1
+			<if test="paramEntity.realname!=null and paramEntity.realname!=''"> and realname like concat('%','${paramEntity.realname}','%' )</if>
+		<if test="paramEntity.telephone!=null and paramEntity.telephone!=''"> and telephone like concat('%','${paramEntity.telephone}','%' )</if>
+		<if test="paramEntity.idcard!=null and paramEntity.idcard!=''"> and idcard like concat('%','${paramEntity.idcard}','%' )</if>
+	</select>
+
+	<select id="datagridShUser" resultType="com.hroa.model.ShUser" parameterType="com.hroa.util.Page">
+		select
+		<include refid="Base_Column_List" />
+		from sh_user where 1=1
+		<if test="paramEntity.realname!=null and paramEntity.realname!=''"> and realname like concat('%','${paramEntity.realname}','%' )</if>
+		<if test="paramEntity.telephone!=null and paramEntity.telephone!=''"> and telephone like concat('%','${paramEntity.telephone}','%' )</if>
+		<if test="paramEntity.idcard!=null and paramEntity.idcard!=''"> and idcard like concat('%','${paramEntity.idcard}','%' )</if>
+		<if test="page > 0">
+			limit #{start},#{rows}
+		</if>
+	</select>
+
+</mapper>

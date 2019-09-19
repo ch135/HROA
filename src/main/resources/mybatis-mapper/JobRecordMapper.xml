@@ -1,0 +1,947 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.JobRecordDao" >
+  <resultMap id="BaseResultMap" type="com.hroa.model.JobRecord" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="icno" property="icno" jdbcType="VARCHAR" />
+    <result column="label" property="label" jdbcType="VARCHAR" />
+    <result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+    <result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="registerdate" property="registerdate" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="scale" property="scale" jdbcType="VARCHAR" />
+    <result column="produce" property="produce" jdbcType="VARCHAR" />
+    <result column="job" property="job" jdbcType="VARCHAR" />
+    <result column="cover" property="cover" jdbcType="VARCHAR" />
+    <result column="welfare" property="welfare" jdbcType="VARCHAR" />
+    <result column="required" property="required" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="salary" property="salary" jdbcType="VARCHAR" />
+    <result column="more_salary" property="moreSalary" jdbcType="DECIMAL" />
+    <result column="unit" property="unit" jdbcType="INTEGER" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="details" property="details" jdbcType="VARCHAR" />
+    <result column="factory_man" property="factoryMan" jdbcType="VARCHAR" />
+    <result column="factory_phone" property="factoryPhone" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="classify" property="classify" jdbcType="VARCHAR" />
+    <result column="is_finish" property="isFinish" jdbcType="INTEGER" />
+    <result column="certificates" property="certificates" jdbcType="VARCHAR" />
+    <result column="minage" property="minage" jdbcType="INTEGER" />
+    <result column="maxage" property="maxage" jdbcType="INTEGER" />
+    <result column="develop_man" property="developMan" jdbcType="VARCHAR" />
+    <result column="develop_link" property="developLink" jdbcType="VARCHAR" />
+    <result column="work_type" property="workType" jdbcType="VARCHAR" />
+    <result column="live" property="live" jdbcType="VARCHAR" />
+    <result column="eat_type" property="eatType" jdbcType="VARCHAR" />
+    <result column="eat_standard" property="eatStandard" jdbcType="VARCHAR" />
+    <result column="clothes_type" property="clothesType" jdbcType="VARCHAR" />
+    <result column="work_time" property="workTime" jdbcType="VARCHAR" />
+    <result column="eat_standard_ex" property="eatStandardEx" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hroa.model.JobRecord" extends="BaseResultMap" >
+    <result column="describes" property="describes" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, telephone, password, name, icno, label, link_man, link_phone, email, registerdate, 
+    url, scale, produce, job, cover, welfare, required, number, date, salary, more_salary, 
+    unit, city, province, region, details, factory_man, factory_phone, type, classify, 
+    is_finish, certificates, minage, maxage, develop_man, develop_link, work_type, live, 
+    eat_type, eat_standard, clothes_type, work_time, eat_standard_ex
+  </sql>
+  <sql id="Blob_Column_List" >
+    describes
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hroa.model.JobRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from job_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hroa.model.JobRecordExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from job_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from job_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from job_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hroa.model.JobRecordExample" >
+    delete from job_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hroa.model.JobRecord" >
+    insert into job_record (id, telephone, password, 
+      name, icno, label, 
+      link_man, link_phone, email, 
+      registerdate, url, scale, 
+      produce, job, cover, 
+      welfare, required, number, 
+      date, salary, more_salary, 
+      unit, city, province, 
+      region, details, factory_man, 
+      factory_phone, type, classify, 
+      is_finish, certificates, minage, 
+      maxage, develop_man, develop_link, 
+      work_type, live, eat_type, 
+      eat_standard, clothes_type, work_time, 
+      eat_standard_ex, describes)
+    values (#{id,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{icno,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR}, 
+      #{linkMan,jdbcType=VARCHAR}, #{linkPhone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{registerdate,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{scale,jdbcType=VARCHAR}, 
+      #{produce,jdbcType=VARCHAR}, #{job,jdbcType=VARCHAR}, #{cover,jdbcType=VARCHAR}, 
+      #{welfare,jdbcType=VARCHAR}, #{required,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{date,jdbcType=VARCHAR}, #{salary,jdbcType=VARCHAR}, #{moreSalary,jdbcType=DECIMAL}, 
+      #{unit,jdbcType=INTEGER}, #{city,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{region,jdbcType=VARCHAR}, #{details,jdbcType=VARCHAR}, #{factoryMan,jdbcType=VARCHAR}, 
+      #{factoryPhone,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{classify,jdbcType=VARCHAR}, 
+      #{isFinish,jdbcType=INTEGER}, #{certificates,jdbcType=VARCHAR}, #{minage,jdbcType=INTEGER}, 
+      #{maxage,jdbcType=INTEGER}, #{developMan,jdbcType=VARCHAR}, #{developLink,jdbcType=VARCHAR}, 
+      #{workType,jdbcType=VARCHAR}, #{live,jdbcType=VARCHAR}, #{eatType,jdbcType=VARCHAR}, 
+      #{eatStandard,jdbcType=VARCHAR}, #{clothesType,jdbcType=VARCHAR}, #{workTime,jdbcType=VARCHAR}, 
+      #{eatStandardEx,jdbcType=VARCHAR}, #{describes,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hroa.model.JobRecord" >
+    insert into job_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="icno != null" >
+        icno,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="linkMan != null" >
+        link_man,
+      </if>
+      <if test="linkPhone != null" >
+        link_phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="registerdate != null" >
+        registerdate,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="scale != null" >
+        scale,
+      </if>
+      <if test="produce != null" >
+        produce,
+      </if>
+      <if test="job != null" >
+        job,
+      </if>
+      <if test="cover != null" >
+        cover,
+      </if>
+      <if test="welfare != null" >
+        welfare,
+      </if>
+      <if test="required != null" >
+        required,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="salary != null" >
+        salary,
+      </if>
+      <if test="moreSalary != null" >
+        more_salary,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="details != null" >
+        details,
+      </if>
+      <if test="factoryMan != null" >
+        factory_man,
+      </if>
+      <if test="factoryPhone != null" >
+        factory_phone,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="classify != null" >
+        classify,
+      </if>
+      <if test="isFinish != null" >
+        is_finish,
+      </if>
+      <if test="certificates != null" >
+        certificates,
+      </if>
+      <if test="minage != null" >
+        minage,
+      </if>
+      <if test="maxage != null" >
+        maxage,
+      </if>
+      <if test="developMan != null" >
+        develop_man,
+      </if>
+      <if test="developLink != null" >
+        develop_link,
+      </if>
+      <if test="workType != null" >
+        work_type,
+      </if>
+      <if test="live != null" >
+        live,
+      </if>
+      <if test="eatType != null" >
+        eat_type,
+      </if>
+      <if test="eatStandard != null" >
+        eat_standard,
+      </if>
+      <if test="clothesType != null" >
+        clothes_type,
+      </if>
+      <if test="workTime != null" >
+        work_time,
+      </if>
+      <if test="eatStandardEx != null" >
+        eat_standard_ex,
+      </if>
+      <if test="describes != null" >
+        describes,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icno != null" >
+        #{icno,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMan != null" >
+        #{linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null" >
+        #{linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null" >
+        #{registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="scale != null" >
+        #{scale,jdbcType=VARCHAR},
+      </if>
+      <if test="produce != null" >
+        #{produce,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="welfare != null" >
+        #{welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="required != null" >
+        #{required,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="moreSalary != null" >
+        #{moreSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryMan != null" >
+        #{factoryMan,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryPhone != null" >
+        #{factoryPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="classify != null" >
+        #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null" >
+        #{isFinish,jdbcType=INTEGER},
+      </if>
+      <if test="certificates != null" >
+        #{certificates,jdbcType=VARCHAR},
+      </if>
+      <if test="minage != null" >
+        #{minage,jdbcType=INTEGER},
+      </if>
+      <if test="maxage != null" >
+        #{maxage,jdbcType=INTEGER},
+      </if>
+      <if test="developMan != null" >
+        #{developMan,jdbcType=VARCHAR},
+      </if>
+      <if test="developLink != null" >
+        #{developLink,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null" >
+        #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="live != null" >
+        #{live,jdbcType=VARCHAR},
+      </if>
+      <if test="eatType != null" >
+        #{eatType,jdbcType=VARCHAR},
+      </if>
+      <if test="eatStandard != null" >
+        #{eatStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="clothesType != null" >
+        #{clothesType,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="eatStandardEx != null" >
+        #{eatStandardEx,jdbcType=VARCHAR},
+      </if>
+      <if test="describes != null" >
+        #{describes,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hroa.model.JobRecordExample" resultType="java.lang.Integer" >
+    select count(*) from job_record
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update job_record
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icno != null" >
+        icno = #{record.icno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.label != null" >
+        label = #{record.label,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkMan != null" >
+        link_man = #{record.linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.linkPhone != null" >
+        link_phone = #{record.linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerdate != null" >
+        registerdate = #{record.registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.scale != null" >
+        scale = #{record.scale,jdbcType=VARCHAR},
+      </if>
+      <if test="record.produce != null" >
+        produce = #{record.produce,jdbcType=VARCHAR},
+      </if>
+      <if test="record.job != null" >
+        job = #{record.job,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cover != null" >
+        cover = #{record.cover,jdbcType=VARCHAR},
+      </if>
+      <if test="record.welfare != null" >
+        welfare = #{record.welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="record.required != null" >
+        required = #{record.required,jdbcType=VARCHAR},
+      </if>
+      <if test="record.number != null" >
+        number = #{record.number,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salary != null" >
+        salary = #{record.salary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moreSalary != null" >
+        more_salary = #{record.moreSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="record.unit != null" >
+        unit = #{record.unit,jdbcType=INTEGER},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.details != null" >
+        details = #{record.details,jdbcType=VARCHAR},
+      </if>
+      <if test="record.factoryMan != null" >
+        factory_man = #{record.factoryMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.factoryPhone != null" >
+        factory_phone = #{record.factoryPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.classify != null" >
+        classify = #{record.classify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isFinish != null" >
+        is_finish = #{record.isFinish,jdbcType=INTEGER},
+      </if>
+      <if test="record.certificates != null" >
+        certificates = #{record.certificates,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minage != null" >
+        minage = #{record.minage,jdbcType=INTEGER},
+      </if>
+      <if test="record.maxage != null" >
+        maxage = #{record.maxage,jdbcType=INTEGER},
+      </if>
+      <if test="record.developMan != null" >
+        develop_man = #{record.developMan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.developLink != null" >
+        develop_link = #{record.developLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workType != null" >
+        work_type = #{record.workType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.live != null" >
+        live = #{record.live,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eatType != null" >
+        eat_type = #{record.eatType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eatStandard != null" >
+        eat_standard = #{record.eatStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.clothesType != null" >
+        clothes_type = #{record.clothesType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workTime != null" >
+        work_time = #{record.workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.eatStandardEx != null" >
+        eat_standard_ex = #{record.eatStandardEx,jdbcType=VARCHAR},
+      </if>
+      <if test="record.describes != null" >
+        describes = #{record.describes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update job_record
+    set id = #{record.id,jdbcType=INTEGER},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      icno = #{record.icno,jdbcType=VARCHAR},
+      label = #{record.label,jdbcType=VARCHAR},
+      link_man = #{record.linkMan,jdbcType=VARCHAR},
+      link_phone = #{record.linkPhone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      registerdate = #{record.registerdate,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      scale = #{record.scale,jdbcType=VARCHAR},
+      produce = #{record.produce,jdbcType=VARCHAR},
+      job = #{record.job,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      welfare = #{record.welfare,jdbcType=VARCHAR},
+      required = #{record.required,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR},
+      salary = #{record.salary,jdbcType=VARCHAR},
+      more_salary = #{record.moreSalary,jdbcType=DECIMAL},
+      unit = #{record.unit,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      details = #{record.details,jdbcType=VARCHAR},
+      factory_man = #{record.factoryMan,jdbcType=VARCHAR},
+      factory_phone = #{record.factoryPhone,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      classify = #{record.classify,jdbcType=VARCHAR},
+      is_finish = #{record.isFinish,jdbcType=INTEGER},
+      certificates = #{record.certificates,jdbcType=VARCHAR},
+      minage = #{record.minage,jdbcType=INTEGER},
+      maxage = #{record.maxage,jdbcType=INTEGER},
+      develop_man = #{record.developMan,jdbcType=VARCHAR},
+      develop_link = #{record.developLink,jdbcType=VARCHAR},
+      work_type = #{record.workType,jdbcType=VARCHAR},
+      live = #{record.live,jdbcType=VARCHAR},
+      eat_type = #{record.eatType,jdbcType=VARCHAR},
+      eat_standard = #{record.eatStandard,jdbcType=VARCHAR},
+      clothes_type = #{record.clothesType,jdbcType=VARCHAR},
+      work_time = #{record.workTime,jdbcType=VARCHAR},
+      eat_standard_ex = #{record.eatStandardEx,jdbcType=VARCHAR},
+      describes = #{record.describes,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update job_record
+    set id = #{record.id,jdbcType=INTEGER},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      icno = #{record.icno,jdbcType=VARCHAR},
+      label = #{record.label,jdbcType=VARCHAR},
+      link_man = #{record.linkMan,jdbcType=VARCHAR},
+      link_phone = #{record.linkPhone,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      registerdate = #{record.registerdate,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR},
+      scale = #{record.scale,jdbcType=VARCHAR},
+      produce = #{record.produce,jdbcType=VARCHAR},
+      job = #{record.job,jdbcType=VARCHAR},
+      cover = #{record.cover,jdbcType=VARCHAR},
+      welfare = #{record.welfare,jdbcType=VARCHAR},
+      required = #{record.required,jdbcType=VARCHAR},
+      number = #{record.number,jdbcType=INTEGER},
+      date = #{record.date,jdbcType=VARCHAR},
+      salary = #{record.salary,jdbcType=VARCHAR},
+      more_salary = #{record.moreSalary,jdbcType=DECIMAL},
+      unit = #{record.unit,jdbcType=INTEGER},
+      city = #{record.city,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      details = #{record.details,jdbcType=VARCHAR},
+      factory_man = #{record.factoryMan,jdbcType=VARCHAR},
+      factory_phone = #{record.factoryPhone,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      classify = #{record.classify,jdbcType=VARCHAR},
+      is_finish = #{record.isFinish,jdbcType=INTEGER},
+      certificates = #{record.certificates,jdbcType=VARCHAR},
+      minage = #{record.minage,jdbcType=INTEGER},
+      maxage = #{record.maxage,jdbcType=INTEGER},
+      develop_man = #{record.developMan,jdbcType=VARCHAR},
+      develop_link = #{record.developLink,jdbcType=VARCHAR},
+      work_type = #{record.workType,jdbcType=VARCHAR},
+      live = #{record.live,jdbcType=VARCHAR},
+      eat_type = #{record.eatType,jdbcType=VARCHAR},
+      eat_standard = #{record.eatStandard,jdbcType=VARCHAR},
+      clothes_type = #{record.clothesType,jdbcType=VARCHAR},
+      work_time = #{record.workTime,jdbcType=VARCHAR},
+      eat_standard_ex = #{record.eatStandardEx,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.JobRecord" >
+    update job_record
+    <set >
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icno != null" >
+        icno = #{icno,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="linkMan != null" >
+        link_man = #{linkMan,jdbcType=VARCHAR},
+      </if>
+      <if test="linkPhone != null" >
+        link_phone = #{linkPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="registerdate != null" >
+        registerdate = #{registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="scale != null" >
+        scale = #{scale,jdbcType=VARCHAR},
+      </if>
+      <if test="produce != null" >
+        produce = #{produce,jdbcType=VARCHAR},
+      </if>
+      <if test="job != null" >
+        job = #{job,jdbcType=VARCHAR},
+      </if>
+      <if test="cover != null" >
+        cover = #{cover,jdbcType=VARCHAR},
+      </if>
+      <if test="welfare != null" >
+        welfare = #{welfare,jdbcType=VARCHAR},
+      </if>
+      <if test="required != null" >
+        required = #{required,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        salary = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="moreSalary != null" >
+        more_salary = #{moreSalary,jdbcType=DECIMAL},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=INTEGER},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="details != null" >
+        details = #{details,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryMan != null" >
+        factory_man = #{factoryMan,jdbcType=VARCHAR},
+      </if>
+      <if test="factoryPhone != null" >
+        factory_phone = #{factoryPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="classify != null" >
+        classify = #{classify,jdbcType=VARCHAR},
+      </if>
+      <if test="isFinish != null" >
+        is_finish = #{isFinish,jdbcType=INTEGER},
+      </if>
+      <if test="certificates != null" >
+        certificates = #{certificates,jdbcType=VARCHAR},
+      </if>
+      <if test="minage != null" >
+        minage = #{minage,jdbcType=INTEGER},
+      </if>
+      <if test="maxage != null" >
+        maxage = #{maxage,jdbcType=INTEGER},
+      </if>
+      <if test="developMan != null" >
+        develop_man = #{developMan,jdbcType=VARCHAR},
+      </if>
+      <if test="developLink != null" >
+        develop_link = #{developLink,jdbcType=VARCHAR},
+      </if>
+      <if test="workType != null" >
+        work_type = #{workType,jdbcType=VARCHAR},
+      </if>
+      <if test="live != null" >
+        live = #{live,jdbcType=VARCHAR},
+      </if>
+      <if test="eatType != null" >
+        eat_type = #{eatType,jdbcType=VARCHAR},
+      </if>
+      <if test="eatStandard != null" >
+        eat_standard = #{eatStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="clothesType != null" >
+        clothes_type = #{clothesType,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        work_time = #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="eatStandardEx != null" >
+        eat_standard_ex = #{eatStandardEx,jdbcType=VARCHAR},
+      </if>
+      <if test="describes != null" >
+        describes = #{describes,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hroa.model.JobRecord" >
+    update job_record
+    set telephone = #{telephone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      icno = #{icno,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      link_phone = #{linkPhone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      registerdate = #{registerdate,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      scale = #{scale,jdbcType=VARCHAR},
+      produce = #{produce,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      welfare = #{welfare,jdbcType=VARCHAR},
+      required = #{required,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=VARCHAR},
+      more_salary = #{moreSalary,jdbcType=DECIMAL},
+      unit = #{unit,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      details = #{details,jdbcType=VARCHAR},
+      factory_man = #{factoryMan,jdbcType=VARCHAR},
+      factory_phone = #{factoryPhone,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      classify = #{classify,jdbcType=VARCHAR},
+      is_finish = #{isFinish,jdbcType=INTEGER},
+      certificates = #{certificates,jdbcType=VARCHAR},
+      minage = #{minage,jdbcType=INTEGER},
+      maxage = #{maxage,jdbcType=INTEGER},
+      develop_man = #{developMan,jdbcType=VARCHAR},
+      develop_link = #{developLink,jdbcType=VARCHAR},
+      work_type = #{workType,jdbcType=VARCHAR},
+      live = #{live,jdbcType=VARCHAR},
+      eat_type = #{eatType,jdbcType=VARCHAR},
+      eat_standard = #{eatStandard,jdbcType=VARCHAR},
+      clothes_type = #{clothesType,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=VARCHAR},
+      eat_standard_ex = #{eatStandardEx,jdbcType=VARCHAR},
+      describes = #{describes,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hroa.model.JobRecord" >
+    update job_record
+    set telephone = #{telephone,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      icno = #{icno,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR},
+      link_man = #{linkMan,jdbcType=VARCHAR},
+      link_phone = #{linkPhone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      registerdate = #{registerdate,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      scale = #{scale,jdbcType=VARCHAR},
+      produce = #{produce,jdbcType=VARCHAR},
+      job = #{job,jdbcType=VARCHAR},
+      cover = #{cover,jdbcType=VARCHAR},
+      welfare = #{welfare,jdbcType=VARCHAR},
+      required = #{required,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      date = #{date,jdbcType=VARCHAR},
+      salary = #{salary,jdbcType=VARCHAR},
+      more_salary = #{moreSalary,jdbcType=DECIMAL},
+      unit = #{unit,jdbcType=INTEGER},
+      city = #{city,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      details = #{details,jdbcType=VARCHAR},
+      factory_man = #{factoryMan,jdbcType=VARCHAR},
+      factory_phone = #{factoryPhone,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      classify = #{classify,jdbcType=VARCHAR},
+      is_finish = #{isFinish,jdbcType=INTEGER},
+      certificates = #{certificates,jdbcType=VARCHAR},
+      minage = #{minage,jdbcType=INTEGER},
+      maxage = #{maxage,jdbcType=INTEGER},
+      develop_man = #{developMan,jdbcType=VARCHAR},
+      develop_link = #{developLink,jdbcType=VARCHAR},
+      work_type = #{workType,jdbcType=VARCHAR},
+      live = #{live,jdbcType=VARCHAR},
+      eat_type = #{eatType,jdbcType=VARCHAR},
+      eat_standard = #{eatStandard,jdbcType=VARCHAR},
+      clothes_type = #{clothesType,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=VARCHAR},
+      eat_standard_ex = #{eatStandardEx,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

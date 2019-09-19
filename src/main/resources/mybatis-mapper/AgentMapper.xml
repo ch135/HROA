@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.AgentDao" >
+  <resultMap id="BaseResultMap" type="com.hroa.model.Agent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="identity" property="identity" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="idCard_num" property="idcardNum" jdbcType="VARCHAR" />
+    <result column="idCard_front" property="idcardFront" jdbcType="VARCHAR" />
+    <result column="idCard_back" property="idcardBack" jdbcType="VARCHAR" />
+    <result column="apply_province" property="applyProvince" jdbcType="VARCHAR" />
+    <result column="apply_city" property="applyCity" jdbcType="VARCHAR" />
+    <result column="apply_region" property="applyRegion" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="region" property="region" jdbcType="VARCHAR" />
+    <result column="qrCode" property="qrcode" jdbcType="VARCHAR" />
+    <result column="failure_info" property="failureInfo" jdbcType="VARCHAR" />
+    <result column="apply_status" property="applyStatus" jdbcType="INTEGER" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="manager_tel" property="managerTel" jdbcType="VARCHAR" />
+    <result column="agent_type" property="agentType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, identity, telephone, sex, name, idCard_num, idCard_front, idCard_back, 
+    apply_province, apply_city, apply_region, province, city, region, qrCode, failure_info, 
+    apply_status, manager, manager_tel, agent_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hroa.model.AgentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from agent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from agent
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from agent
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hroa.model.AgentExample" >
+    delete from agent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hroa.model.Agent" >
+    insert into agent (id, user_id, identity, 
+      telephone, sex, name, 
+      idCard_num, idCard_front, idCard_back, 
+      apply_province, apply_city, apply_region, 
+      province, city, region, 
+      qrCode, failure_info, apply_status, 
+      manager, manager_tel, agent_type
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{identity,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{idcardNum,jdbcType=VARCHAR}, #{idcardFront,jdbcType=VARCHAR}, #{idcardBack,jdbcType=VARCHAR}, 
+      #{applyProvince,jdbcType=VARCHAR}, #{applyCity,jdbcType=VARCHAR}, #{applyRegion,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR}, 
+      #{qrcode,jdbcType=VARCHAR}, #{failureInfo,jdbcType=VARCHAR}, #{applyStatus,jdbcType=INTEGER}, 
+      #{manager,jdbcType=VARCHAR}, #{managerTel,jdbcType=VARCHAR}, #{agentType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hroa.model.Agent" >
+    insert into agent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="identity != null" >
+        identity,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="idcardNum != null" >
+        idCard_num,
+      </if>
+      <if test="idcardFront != null" >
+        idCard_front,
+      </if>
+      <if test="idcardBack != null" >
+        idCard_back,
+      </if>
+      <if test="applyProvince != null" >
+        apply_province,
+      </if>
+      <if test="applyCity != null" >
+        apply_city,
+      </if>
+      <if test="applyRegion != null" >
+        apply_region,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="region != null" >
+        region,
+      </if>
+      <if test="qrcode != null" >
+        qrCode,
+      </if>
+      <if test="failureInfo != null" >
+        failure_info,
+      </if>
+      <if test="applyStatus != null" >
+        apply_status,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="managerTel != null" >
+        manager_tel,
+      </if>
+      <if test="agentType != null" >
+        agent_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="identity != null" >
+        #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardNum != null" >
+        #{idcardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardFront != null" >
+        #{idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardBack != null" >
+        #{idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="applyProvince != null" >
+        #{applyProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCity != null" >
+        #{applyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="applyRegion != null" >
+        #{applyRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcode != null" >
+        #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="failureInfo != null" >
+        #{failureInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null" >
+        #{applyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTel != null" >
+        #{managerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="agentType != null" >
+        #{agentType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hroa.model.AgentExample" resultType="java.lang.Integer" >
+    select count(*) from agent
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update agent
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.identity != null" >
+        identity = #{record.identity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardNum != null" >
+        idCard_num = #{record.idcardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardFront != null" >
+        idCard_front = #{record.idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcardBack != null" >
+        idCard_back = #{record.idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyProvince != null" >
+        apply_province = #{record.applyProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyCity != null" >
+        apply_city = #{record.applyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyRegion != null" >
+        apply_region = #{record.applyRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.region != null" >
+        region = #{record.region,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qrcode != null" >
+        qrCode = #{record.qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.failureInfo != null" >
+        failure_info = #{record.failureInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.applyStatus != null" >
+        apply_status = #{record.applyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.manager != null" >
+        manager = #{record.manager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managerTel != null" >
+        manager_tel = #{record.managerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agentType != null" >
+        agent_type = #{record.agentType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update agent
+    set id = #{record.id,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      identity = #{record.identity,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      idCard_num = #{record.idcardNum,jdbcType=VARCHAR},
+      idCard_front = #{record.idcardFront,jdbcType=VARCHAR},
+      idCard_back = #{record.idcardBack,jdbcType=VARCHAR},
+      apply_province = #{record.applyProvince,jdbcType=VARCHAR},
+      apply_city = #{record.applyCity,jdbcType=VARCHAR},
+      apply_region = #{record.applyRegion,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      region = #{record.region,jdbcType=VARCHAR},
+      qrCode = #{record.qrcode,jdbcType=VARCHAR},
+      failure_info = #{record.failureInfo,jdbcType=VARCHAR},
+      apply_status = #{record.applyStatus,jdbcType=INTEGER},
+      manager = #{record.manager,jdbcType=VARCHAR},
+      manager_tel = #{record.managerTel,jdbcType=VARCHAR},
+      agent_type = #{record.agentType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.Agent" >
+    update agent
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="identity != null" >
+        identity = #{identity,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardNum != null" >
+        idCard_num = #{idcardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardFront != null" >
+        idCard_front = #{idcardFront,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardBack != null" >
+        idCard_back = #{idcardBack,jdbcType=VARCHAR},
+      </if>
+      <if test="applyProvince != null" >
+        apply_province = #{applyProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="applyCity != null" >
+        apply_city = #{applyCity,jdbcType=VARCHAR},
+      </if>
+      <if test="applyRegion != null" >
+        apply_region = #{applyRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="region != null" >
+        region = #{region,jdbcType=VARCHAR},
+      </if>
+      <if test="qrcode != null" >
+        qrCode = #{qrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="failureInfo != null" >
+        failure_info = #{failureInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyStatus != null" >
+        apply_status = #{applyStatus,jdbcType=INTEGER},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="managerTel != null" >
+        manager_tel = #{managerTel,jdbcType=VARCHAR},
+      </if>
+      <if test="agentType != null" >
+        agent_type = #{agentType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hroa.model.Agent" >
+    update agent
+    set user_id = #{userId,jdbcType=INTEGER},
+      identity = #{identity,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      idCard_num = #{idcardNum,jdbcType=VARCHAR},
+      idCard_front = #{idcardFront,jdbcType=VARCHAR},
+      idCard_back = #{idcardBack,jdbcType=VARCHAR},
+      apply_province = #{applyProvince,jdbcType=VARCHAR},
+      apply_city = #{applyCity,jdbcType=VARCHAR},
+      apply_region = #{applyRegion,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      region = #{region,jdbcType=VARCHAR},
+      qrCode = #{qrcode,jdbcType=VARCHAR},
+      failure_info = #{failureInfo,jdbcType=VARCHAR},
+      apply_status = #{applyStatus,jdbcType=INTEGER},
+      manager = #{manager,jdbcType=VARCHAR},
+      manager_tel = #{managerTel,jdbcType=VARCHAR},
+      agent_type = #{agentType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

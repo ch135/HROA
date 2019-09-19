@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.ShCompanyDao">
+	<resultMap id="BaseResultMap" type="com.hroa.model.ShCompany">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="icno" property="icno" jdbcType="VARCHAR" />
+		<result column="label" property="label" jdbcType="VARCHAR" />
+		<result column="province" property="province" jdbcType="VARCHAR" />
+		<result column="city" property="city" jdbcType="VARCHAR" />
+		<result column="region" property="region" jdbcType="VARCHAR" />
+		<result column="details" property="details" jdbcType="VARCHAR" />
+		<result column="license" property="license" jdbcType="VARCHAR" />
+		<result column="tax" property="tax" jdbcType="VARCHAR" />
+		<result column="link_man" property="linkMan" jdbcType="VARCHAR" />
+		<result column="link_phone" property="linkPhone" jdbcType="VARCHAR" />
+		<result column="is_check" property="isCheck" jdbcType="INTEGER" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="role" property="role" jdbcType="INTEGER" />
+		<result column="registerdate" property="registerdate" jdbcType="VARCHAR" />
+		<result column="produce" property="produce" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="scale" property="scale" jdbcType="VARCHAR" />
+		<result column="describes" property="describes" jdbcType="LONGVARCHAR" />
+		<result column="failurepassinfo" property="failurepassinfo" jdbcType="LONGVARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, telephone, password, name, icno, label, province, city, region, details, license,
+		tax, link_man, link_phone, is_check, email, role, registerdate, produce, url, scale,describes, failurepassinfo
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sh_company
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from sh_company
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.hroa.model.ShCompany">
+		insert into sh_company (id, telephone, password,
+		name, icno, label,
+		province, city, region,
+		details, license, tax,
+		link_man, link_phone, is_check,
+		email, role, registerdate,
+		produce, url, scale,
+		describes, failurepassinfo)
+		values (#{id,jdbcType=INTEGER}, #{telephone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR}, #{icno,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR},
+		#{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{region,jdbcType=VARCHAR},
+		#{details,jdbcType=VARCHAR}, #{license,jdbcType=VARCHAR}, #{tax,jdbcType=VARCHAR},
+		#{linkMan,jdbcType=VARCHAR}, #{linkPhone,jdbcType=VARCHAR}, #{isCheck,jdbcType=INTEGER},
+		#{email,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{registerdate,jdbcType=VARCHAR},
+		#{produce,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{scale,jdbcType=VARCHAR},
+		#{describes,jdbcType=LONGVARCHAR}, #{failurepassinfo,jdbcType=LONGVARCHAR})
+	</insert>
+
+
+	<update id="updateByPrimaryKey" parameterType="com.hroa.model.ShCompany">
+		update sh_company
+		set telephone = #{telephone,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		icno = #{icno,jdbcType=VARCHAR},
+		label = #{label,jdbcType=VARCHAR},
+		province = #{province,jdbcType=VARCHAR},
+		city = #{city,jdbcType=VARCHAR},
+		region = #{region,jdbcType=VARCHAR},
+		details = #{details,jdbcType=VARCHAR},
+		license = #{license,jdbcType=VARCHAR},
+		tax = #{tax,jdbcType=VARCHAR},
+		link_man = #{linkMan,jdbcType=VARCHAR},
+		link_phone = #{linkPhone,jdbcType=VARCHAR},
+		is_check = #{isCheck,jdbcType=INTEGER},
+		email = #{email,jdbcType=VARCHAR},
+		role = #{role,jdbcType=INTEGER},
+		registerdate = #{registerdate,jdbcType=VARCHAR},
+		produce = #{produce,jdbcType=VARCHAR},
+		url = #{url,jdbcType=VARCHAR},
+		scale = #{scale,jdbcType=VARCHAR},
+		describes = #{describes,jdbcType=LONGVARCHAR},
+		failurepassinfo = #{failurepassinfo,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+	<select id="datagridShCompany" resultMap="BaseResultMap" parameterType="com.hroa.util.Page">
+		select
+		<include refid="Base_Column_List" />
+		from sh_company where 1=1
+		<if test="paramEntity.name!=null and paramEntity.name!=''"> and name like concat('%','${paramEntity.name}','%' )</if>
+		<if test="paramEntity.linkMan!=null and paramEntity.linkMan!=''"> and link_Man like concat('%','${paramEntity.linkMan}','%' )</if>
+		order by registerdate 
+		<if test="page > 0">
+			limit #{start},#{rows}
+		</if>
+	</select>
+
+	<select id="selectShCompanyTotal" parameterType="com.hroa.util.Page" resultType="java.lang.Integer">
+		select count(*) from sh_company where 1=1
+	<if test="paramEntity.name!=null and paramEntity.name!=''"> and name like concat('%','${paramEntity.name}','%' )</if>
+		<if test="paramEntity.linkMan!=null and paramEntity.linkMan!=''"> and link_Man like concat('%','${paramEntity.linkMan}','%' )</if>
+	</select>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.ShCompany">
+		update sh_company
+		<set>
+			<if test="telephone != null">
+				telephone = #{telephone,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="icno != null">
+				icno = #{icno,jdbcType=VARCHAR},
+			</if>
+			<if test="label != null">
+				label = #{label,jdbcType=VARCHAR},
+			</if>
+			<if test="province != null">
+				province = #{province,jdbcType=VARCHAR},
+			</if>
+			<if test="city != null">
+				city = #{city,jdbcType=VARCHAR},
+			</if>
+			<if test="region != null">
+				region = #{region,jdbcType=VARCHAR},
+			</if>
+			<if test="details != null">
+				details = #{details,jdbcType=VARCHAR},
+			</if>
+			<if test="license != null">
+				license = #{license,jdbcType=VARCHAR},
+			</if>
+			<if test="tax != null">
+				tax = #{tax,jdbcType=VARCHAR},
+			</if>
+			<if test="linkMan != null">
+				link_man = #{linkMan,jdbcType=VARCHAR},
+			</if>
+			<if test="linkPhone != null">
+				link_phone = #{linkPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="isCheck != null">
+				is_check = #{isCheck,jdbcType=INTEGER},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="role != null">
+				role = #{role,jdbcType=INTEGER},
+			</if>
+			<if test="registerdate != null">
+				registerdate = #{registerdate,jdbcType=VARCHAR},
+			</if>
+			<if test="produce != null">
+				produce = #{produce,jdbcType=VARCHAR},
+			</if>
+			<if test="url != null">
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="scale != null">
+				scale = #{scale,jdbcType=VARCHAR},
+			</if>
+			<if test="describes != null">
+				describes = #{describes,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="failurepassinfo != null">
+				failurepassinfo = #{failurepassinfo,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+
+</mapper>

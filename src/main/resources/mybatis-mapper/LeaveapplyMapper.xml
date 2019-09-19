@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.LeaveapplyDao" >
+ <resultMap id="BaseResultMap" type="com.hroa.model.Leaveapply" >
+   <id column="id" property="id" jdbcType="VARCHAR" />
+   <result column="applytime" property="applytime" jdbcType="DATE" />
+   <result column="department" property="department" jdbcType="VARCHAR" />
+   <result column="name" property="name" jdbcType="VARCHAR" />
+   <result column="phone" property="phone" jdbcType="VARCHAR" />
+   <result column="starttime" property="starttime" jdbcType="DATE" />
+   <result column="endtime" property="endtime" jdbcType="DATE" />
+   <result column="reason" property="reason" jdbcType="VARCHAR" />
+   <result column="manager" property="manager" jdbcType="VARCHAR" />
+   <result column="fristcheck" property="fristcheck" jdbcType="INTEGER" />
+   <result column="secondcheck" property="secondcheck" jdbcType="INTEGER" />
+   <result column="result" property="result" jdbcType="INTEGER" />
+ </resultMap>
+  <sql id="Base_Column_List" >
+    id, applytime, department, name, phone, starttime, endtime, reason, manager, fristcheck, 
+    secondcheck, result
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from leaveapply
+    where id = #{id,jdbcType=VARCHAR} and fristcheck!=3
+  </select>
+  <select id="selectByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+   select
+   	<include refid="Base_Column_List"/>
+   	from leaveapply
+   	where phone=#{phone,jdbcType=VARCHAR} order by applytime desc;
+  </select>
+  <select id="getCount" resultType="Integer" parameterType="java.lang.Integer">
+  	select Count(*) from leaveapply 
+  	where
+  	<if test="power==1">
+  		fristcheck=0
+  	</if>
+  	<if test="power==2">
+  		secondcheck=0
+  	</if>
+  </select>
+  <select id="getDayNum" resultType="Integer" parameterType="Map">
+  	select Count(*) from leaveapply 
+  	where applytime=#{day} and
+  	<if test="power==1">
+  		fristcheck=0
+  	</if>
+  	<if test="power==2">
+  		secondcheck=0
+  	</if>
+  </select>
+  <select id="getHistoryCount" resultType="Integer" parameterType="java.lang.Integer">
+  	select Count(*) from leaveapply where result=0 and
+  	<if test="power==1">
+  		fristcheck!=0
+  	</if>
+  	<if test="power==2">
+  		secondcheck!=0
+  	</if>
+  </select>
+  <select id="getCountByName" resultType="Integer" parameterType="Map">
+  	select Count(*) from leaveapply where result=0 and name=#{name} and
+  	<if test="power==1">
+  		fristcheck=0
+  	</if>
+  	<if test="power==2">
+  		secondcheck=0
+  	</if>
+  </select>
+  <select id="getLeave" parameterType="Map" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"/>
+  		from leaveapply
+  		where result=0 and
+  		<if test="power==1 and start!=null and pagesize!=null">
+  			fristcheck=0 order by applytime desc limit #{start},#{pagesize}
+  		</if>
+  		<if test="power==2 and start!=null and pagesize!=null">
+  			secondcheck=0 order by applytime desc limit #{start},#{pagesize}s
+  		</if>
+  </select>
+  <select id="getHistoryLeave" parameterType="Map" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"/>
+  		from leaveapply where result=0 and
+  		<if test="power==1 and start!=null and pagesize!=null">
+  			fristcheck!=0 order by applytime desc limit #{start},#{pagesize}
+	  	</if>
+	  	<if test="power==2 and start!=null and pagesize!=null">
+	  		secondcheck!=0 order by applytime desc limit #{start},#{pagesize}
+	  	</if>
+  </select>
+  <select id="getLeaveByname" parameterType="Map" resultMap="BaseResultMap">
+  	select
+  		<include refid="Base_Column_List"/>
+  		from leaveapply where result=0 and name=#{name} and
+  		<if test="power==1 and start!=null and pagesize!=null">
+  			fristcheck=0 order by applytime desc limit #{start},#{pagesize}
+  		</if>
+  		<if test="power==2 and start!=null and pagesize!=null">
+  			secondcheck=0 order by applytime desc limit #{start},#{pagesize}
+  		</if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from leaveapply
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hroa.model.Leaveapply" >
+    insert into leaveapply (id, applytime, department, 
+      name, phone, starttime, 
+      endtime, reason, manager, 
+      fristcheck, secondcheck,result
+      )
+    values (#{id,jdbcType=VARCHAR}, #{applytime,jdbcType=DATE}, #{department,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE}, 
+      #{endtime,jdbcType=DATE}, #{reason,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, 
+      #{fristcheck,jdbcType=INTEGER}, #{secondcheck,jdbcType=INTEGER},#{result,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hroa.model.Leaveapply" >
+    insert into leaveapply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applytime != null" >
+        applytime,
+      </if>
+      <if test="department != null" >
+        department,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="starttime != null" >
+        starttime,
+      </if>
+      <if test="endtime != null" >
+        endtime,
+      </if>
+      <if test="reason != null" >
+        reason,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="fristcheck != null" >
+        fristcheck,
+      </if>
+      <if test="secondcheck != null" >
+        secondcheck,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="applytime != null" >
+        #{applytime,jdbcType=DATE},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="reason != null" >
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="fristcheck != null" >
+        #{fristcheck,jdbcType=INTEGER},
+      </if>
+      <if test="secondcheck != null" >
+        #{secondcheck,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.Leaveapply" >
+    update leaveapply
+    <set >
+      <if test="applytime != null" >
+        applytime = #{applytime,jdbcType=DATE},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        starttime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null" >
+        endtime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="reason != null" >
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="fristcheck != null" >
+        fristcheck = #{fristcheck,jdbcType=INTEGER},
+      </if>
+      <if test="secondcheck != null" >
+        secondcheck = #{secondcheck,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        result = #{secondcheck,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hroa.model.Leaveapply" >
+    update leaveapply
+    set applytime = #{applytime,jdbcType=DATE},
+      department = #{department,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=DATE},
+      endtime = #{endtime,jdbcType=DATE},
+      reason = #{reason,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      fristcheck = #{fristcheck,jdbcType=INTEGER},
+      secondcheck = #{secondcheck,jdbcType=INTEGER},
+      result = #{result,jdbcType=INTEGER},
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

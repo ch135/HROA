@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hroa.dao.SalarymanageDao" >
+  <resultMap id="BaseResultMap" type="com.hroa.model.Salarymanage" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="serial" property="serial" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="card_name" property="cardName" jdbcType="VARCHAR" />
+    <result column="bank_card" property="bankCard" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="salary_date" property="salaryDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="pageResultMap" type="com.hroa.model.Salarymanage">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="bank" property="bank" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, admin_id, serial, company, number, name, sex, card_name, bank_card, bank, money,
+    remark,salary_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from salarymanage
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from salarymanage
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hroa.model.Salarymanage" >
+    insert into salarymanage (id, admin_id, serial, 
+      company, number, name, 
+      sex, card_name, bank_card, 
+      bank, money, remark,salary_date)
+    values (#{id,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{serial,jdbcType=VARCHAR}, 
+      #{company,jdbcType=VARCHAR}, #{number,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{cardName,jdbcType=VARCHAR}, #{bankCard,jdbcType=VARCHAR}, 
+      #{bank,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{remark,jdbcType=VARCHAR},#{salaryDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hroa.model.Salarymanage" >
+    insert into salarymanage
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="serial != null" >
+        serial,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="number != null" >
+        number,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="cardName != null" >
+        card_name,
+      </if>
+      <if test="bankCard != null" >
+        bank_card,
+      </if>
+      <if test="bank != null" >
+        bank,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="salaryDate != null" >
+        salary_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="serial != null" >
+        #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="salaryDate != null" >
+        #{salaryDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hroa.model.Salarymanage" >
+    update salarymanage
+    <set >
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="serial != null" >
+        serial = #{serial,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null" >
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="cardName != null" >
+        card_name = #{cardName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCard != null" >
+        bank_card = #{bankCard,jdbcType=VARCHAR},
+      </if>
+      <if test="bank != null" >
+        bank = #{bank,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hroa.model.Salarymanage" >
+    update salarymanage
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      serial = #{serial,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      card_name = #{cardName,jdbcType=VARCHAR},
+      bank_card = #{bankCard,jdbcType=VARCHAR},
+      bank = #{bank,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      remark = #{remark,jdbcType=VARCHAR},
+      salary_date = #{salaryDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectInfoByPage" resultMap="pageResultMap" parameterType="java.lang.Integer">
+    select id,company,number,name,bank,money from salarymanage ORDER BY id DESC limit #{page,jdbcType=INTEGER},20
+  </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*) from salarymanage
+  </select>
+  <select id="selectAdminNameById" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select username from sh_admin where id = #{adminId,jdbcType=INTEGER}
+  </select>
+  <select id="selectInfoBySalaryDate" resultMap="pageResultMap" parameterType="java.lang.String">
+    select id,company,number,name,bank,money from salarymanage
+    where salary_date = #{salaryDate,jdbcType=VARCHAR}
+  </select>
+  <select id="selectApartInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from salarymanage where salary_date=#{salaryDate,jdbcType=VARCHAR}
+  </select>
+  <select id="selecAllInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from salarymanage
+  </select>
+  <insert id="insertInfoBatch" parameterType="java.util.List">
+    insert into salarymanage (admin_id, serial,
+      company, number, name,
+      sex, card_name, bank_card,
+      bank, money, remark,salary_date)
+    values
+    <foreach collection="list" item="item" index="index"
+             separator=",">
+      (#{item.adminId}, #{item.serial}, #{item.company},
+      #{item.number}, #{item.name},
+      #{item.sex}, #{item.cardName},
+      #{item.bankCard}, #{item.bank},
+      #{item.money}, #{item.remark}, #{item.salaryDate})
+    </foreach>
+  </insert>
+</mapper>
